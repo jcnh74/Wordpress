@@ -1,0 +1,20 @@
+/* CSS Document */
+
+#upm_email_this{
+	font-size:12px;
+	background:#CCCCCC;
+	background:url(email.png) left top no-repeat;
+	color:#555555;
+	font-family:Arial, Helvetica, sans-serif;
+	width:440px; 
+	height:270px; 
+	text-align:right;
+}
+#upm_email_this input, textarea {
+	padding:0px;
+	font-size:11px;
+	margin:2px;
+	width:150px;
+	color:#555555;
+	border:#FFFFFF solid 1px;
+}

@@ -1,0 +1,42 @@
+[submodule "wp-content/themes/Bayer-Pipeline"]
+	path = wp-content/themes/Bayer-Pipeline
+	url = git@github.com:bricksf/Bayer-Pipeline.git
+[submodule "wp-content/themes/alloypd"]
+	path = wp-content/themes/alloypd
+	url = git@github.com:bricksf/alloypd.git
+[submodule "wp-content/themes/beautyandpinups"]
+	path = wp-content/themes/beautyandpinups
+	url = git@github.com:bricksf/beautyandpinups.git
+[submodule "wp-content/themes/bora"]
+	path = wp-content/themes/bora
+	url = git@github.com:bricksf/bora.git
+[submodule "wp-content/themes/elevar"]
+	path = wp-content/themes/elevar
+	url = git@github.com:bricksf/elevar.git
+[submodule "wp-content/themes/formationgroup"]
+	path = wp-content/themes/formationgroup
+	url = git@github.com:bricksf/formationgroup.git
+[submodule "wp-content/themes/fortmason"]
+	path = wp-content/themes/fortmason
+	url = git@github.com:bricksf/fortmason.git
+[submodule "wp-content/themes/game-changers"]
+	path = wp-content/themes/game-changers
+	url = git@github.com:bricksf/game-changers.git
+[submodule "wp-content/themes/giants"]
+	path = wp-content/themes/giants
+	url = git@github.com:bricksf/giants.git
+[submodule "wp-content/themes/impact"]
+	path = wp-content/themes/impact
+	url = git@github.com:bricksf/impact.git
+[submodule "wp-content/themes/levelbeautygroup"]
+	path = wp-content/themes/levelbeautygroup
+	url = git@github.com:bricksf/levelbeautygroup.git
+[submodule "wp-content/themes/ligadata"]
+	path = wp-content/themes/ligadata
+	url = git@github.com:bricksf/ligadata.git
+[submodule "wp-content/themes/oneplus"]
+	path = wp-content/themes/oneplus
+	url = git@github.com:bricksf/oneplus.git
+[submodule "wp-content/themes/publicarch"]
+	path = wp-content/themes/publicarch
+	url = git@github.com:bricksf/publicarch.git
