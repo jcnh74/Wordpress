@@ -40,3 +40,9 @@
 [submodule "wp-content/themes/publicarch"]
 	path = wp-content/themes/publicarch
 	url = git@github.com:bricksf/publicarch.git
+[submodule "wp-content/themes/tindalhome"]
+	path = wp-content/themes/tindalhome
+	url = git@github.com:bricksf/tindalhome.git
+[submodule "wp-content/plugins/Wordpress-Impress"]
+	path = wp-content/plugins/Wordpress-Impress
+	url = git@github.com:jcnh74/Wordpress-Impress.git
