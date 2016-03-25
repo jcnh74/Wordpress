@@ -3,26 +3,11 @@
 Plugin Name: Universal Post Manager
 Plugin URI: http://profprojects.com/universal-post-manager/
 Description: Adds Print, Save as PDF, MS Document, HTML, Text and XML buttons on single post page. Allows your visitors to Print your posts content and download as PDF, Doc, TXT, HTML, XML files.
-Version: 1.4.1
+Version: 1.5.0
 Author: gVectors Team
-Author URI: http://www.gvectors.com
+Author URI: http://gvectors.com
 */
 
-/*  Copyright 2009  Artyom Chakhoyan by ProfProjects.com (email : tom.webdever@gmail.com , support@gvectors.com)
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GPL General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, send mail via Support@ProfProjects.com
-*/
 if ( ! defined( 'WP_CONTENT_URL' ) )
       define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/' . basename (WP_CONTENT_URL) );
 if ( ! defined( 'WP_CONTENT_DIR' ) )
@@ -45,7 +30,7 @@ require( PPPM_FOLDER . 'functions.php' );
 
 	add_filter( "the_content", "pppm_saving_buttons", 1 );
 	
-	if( $_GET[ 'upm_export' ] ) {
+	if( isset($_GET[ 'upm_export' ]) ) {
 		add_action('wp', 'pppm_export', 2000);
 	}
 
@@ -304,6 +289,11 @@ function pppm_install () {
 		update_option( 'pppm_installed', '1.4.1' ); //
 		///////////////////////////////////////////////
 	}
+	if( get_option('pppm_installed') !='1.5.0' ){
+		///////////////////////////////////////////////
+		update_option( 'pppm_installed', '1.5.0' ); //
+		///////////////////////////////////////////////
+	}
 	//-------------------------------------------------------//
 				
 }
@@ -524,16 +514,13 @@ function pppm_css() {
 
 add_action('admin_head','pppm_css');
 
-if(!is_admin() && get_option('pppm_global_jquery_load')){
-	wp_enqueue_script( 'upm_poll_jquery', PPPM_PATH .'js/jquery-1.4.2.min.js');
-}
 #####################################################################################################################
 ################################### ADMIN OPTIONS  ##################################################################
 //- Top Level Menu -//
 $pppm_menu_array [0]['parent_file'] ='main';
 $pppm_menu_array [0]['parent_menu_title'] = 'UPM Settings';
 $pppm_menu_array [0]['parent_menu_icon'] = PPPM_PATH.'img/mini_icon.gif';
-$pppm_menu_array [0]['parent_level'] = 8;
+$pppm_menu_array [0]['parent_level'] = 'manage_options';
 $pppm_menu_array [0]['parent_page_title'] = 'ProfProjects - Universal Post Manager';
 //- Sub Menu Overview -//
 $pppm_menu_array [0]['page']['main']['page_menu_title'] = 'General';
@@ -541,7 +528,7 @@ $pppm_menu_array [0]['page']['main']['page_title'] = 'Universal Post Manager by 
 $pppm_menu_array [0]['page']['main']['page_header'] = __( 'Universal Post Manager - General Settings');
 $pppm_menu_array [0]['page']['main']['page_screen_custom_icon'] = PPPM_PATH.'img/icon.png';
 $pppm_menu_array [0]['page']['main']['page_screen_icon'] = 'options-general';
-$pppm_menu_array [0]['page']['main']['page_level'] = 8;
+$pppm_menu_array [0]['page']['main']['page_level'] = 'manage_options';
 $pppm_menu_array [0]['page']['main']['page_file'] = 'main' ;
 $pppm_menu_array [0]['page']['main']['page_column_number'] = 2;
 $pppm_menu_array [0]['page']['main']['page_include_file_top'] = 'overview.php';
@@ -553,7 +540,7 @@ $pppm_menu_array [0]['page']['saving']['page_title'] = 'Universal Post Manager -
 $pppm_menu_array [0]['page']['saving']['page_header'] = __( 'Save as Text, HTML & Word Document &nbsp; Manager');
 $pppm_menu_array [0]['page']['saving']['page_screen_custom_icon'] = PPPM_PATH.'img/icon.png';
 $pppm_menu_array [0]['page']['saving']['page_screen_icon'] = 'options-general';
-$pppm_menu_array [0]['page']['saving']['page_level'] = 8;
+$pppm_menu_array [0]['page']['saving']['page_level'] = 'manage_options';
 $pppm_menu_array [0]['page']['saving']['page_file'] = 'saving' ;
 $pppm_menu_array [0]['page']['saving']['page_column_number'] = 1;
 $pppm_menu_array [0]['page']['saving']['page_include_file_top'] = 'saving.php';
@@ -580,7 +567,7 @@ $pppm_menu_array [0]['page']['print']['page_title'] = 'Universal Post Manager - 
 $pppm_menu_array [0]['page']['print']['page_header'] = __( 'Print Manager');
 $pppm_menu_array [0]['page']['print']['page_screen_custom_icon'] = PPPM_PATH.'img/icon.png';
 $pppm_menu_array [0]['page']['print']['page_screen_icon'] = 'options-general';
-$pppm_menu_array [0]['page']['print']['page_level'] = 8;
+$pppm_menu_array [0]['page']['print']['page_level'] = 'manage_options';
 $pppm_menu_array [0]['page']['print']['page_file'] = 'print' ;
 $pppm_menu_array [0]['page']['print']['page_column_number'] = 1;
 $pppm_menu_array [0]['page']['print']['page_include_file_top'] = 'print.php';
@@ -604,7 +591,7 @@ $pppm_menu_array [0]['page']['bycat']['page_title'] = 'Universal Post Manager - 
 $pppm_menu_array [0]['page']['bycat']['page_header'] = __( 'All Settings by Categories ( beta )');
 $pppm_menu_array [0]['page']['bycat']['page_screen_custom_icon'] = PPPM_PATH.'img/icon.png';
 $pppm_menu_array [0]['page']['bycat']['page_screen_icon'] = 'options-general';
-$pppm_menu_array [0]['page']['bycat']['page_level'] = 8;
+$pppm_menu_array [0]['page']['bycat']['page_level'] = 'manage_options';
 $pppm_menu_array [0]['page']['bycat']['page_file'] = 'bycat' ;
 $pppm_menu_array [0]['page']['bycat']['page_column_number'] = 1;
 $pppm_menu_array [0]['page']['bycat']['page_include_file_top'] = 'bycat.php';
@@ -643,8 +630,15 @@ class pppm_admin_box {
 	}
 	
 	function on_admin_menu() {
+		//print_r($this->data_array);
+		//exit();
 		
-		add_menu_page($this->data_array['parent_page_title'], $this->data_array['parent_menu_title'] , $this->data_array['parent_level'], $this->data_array['parent_file'] , array(&$this, 'on_show_page'), $this->data_array['parent_menu_icon']);
+		add_menu_page($this->data_array['parent_page_title'], 
+							$this->data_array['parent_menu_title'] , 
+								$this->data_array['parent_level'], 
+									$this->data_array['parent_file'] , 
+										array(&$this, 'on_show_page'), 
+											$this->data_array['parent_menu_icon']);
 		
 		foreach($this->data_array['page'] as $name){
 			
@@ -667,7 +661,8 @@ class pppm_admin_box {
 									array(&$this, 'on_show_page' ));
 			}
 		}
-		if( $this->data_array['page'][$this->pn]['page_type'] == 'admin_box' ) 
+		
+		if( !empty($this->data_array['page'][$this->pn]) && $this->data_array['page'][$this->pn]['page_type'] == 'admin_box' ) 
 		{
 			add_action('load-'.$this->pagehook, array(&$this, 'on_load_page'));
 		}
@@ -687,8 +682,8 @@ class pppm_admin_box {
 		wp_enqueue_script('common');
 		wp_enqueue_script('wp-lists');
 		wp_enqueue_script('postbox');
-		if(count($this->data_array['content'][$this->pn]['sidebox']) > 10) { 
-			wp_die( __(' Number of sideboxes more then 10 !')); break; 
+		if( isset($this->data_array['content'][$this->pn]['sidebox']) && count($this->data_array['content'][$this->pn]['sidebox']) > 10) { 
+			wp_die( __(' Number of sideboxes more then 10 !'));
 		}
 		$fn = 0;
 		if( !empty($this->data_array['content'][$this->pn]['sidebox']) )
@@ -706,7 +701,7 @@ class pppm_admin_box {
 		if( $this->data_array['page'][$this->pn]['page_type'] == 'admin_box' ) 
 		{	
 			if( count($this->data_array['content'][$this->pn]['contentbox']) > 10 ) { 
-				wp_die( __(' Number of contentbox more then 10 !')); break; 
+				wp_die( __(' Number of contentbox more then 10 !')); 
 			}
 			$fn = 0;
 			if(!empty($this->data_array['content'][$this->pn]['contentbox'])) {
@@ -757,8 +752,8 @@ class pppm_admin_box {
 					}
 					else
 					{
-						do_meta_boxes($this->pagehook , 'normal', $data);
-						do_meta_boxes($this->pagehook , 'side', $data);
+						@do_meta_boxes($this->pagehook , 'normal', $data);
+						@do_meta_boxes($this->pagehook , 'side', $data);
 					}
 				?>
 				<br class="clear"/>				
@@ -838,7 +833,8 @@ if(is_admin()){
 	add_action( 'add_meta_boxes', 'upm_buttons_page_metabox' );
 	add_action( 'save_post', 'upm_buttons_save_post_meta', 10, 2 );
 	add_action( 'save_post', 'upm_buttons_save_page_meta', 10, 2 );
-	$pppm_admin_class = new pppm_admin_box( $pppm_menu_array[0], $_GET['page'] );
+	$page = (isset($_GET['page'])) ? $_GET['page'] : false ;
+	$pppm_admin_class = new pppm_admin_box( $pppm_menu_array[0], $page );
 	$pppm_admin_class->pppm_admin();
 }
 

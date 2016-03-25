@@ -299,7 +299,7 @@ class Soliloquy_Shortcode_Lite {
         }
 
         $output  = apply_filters( 'soliloquy_output_before_image', $output, $id, $item, $data, $i );
-        $output .= '<img id="soliloquy-image-' . sanitize_html_class( $id ) . '" class="soliloquy-image soliloquy-image-' . $i . '" src="' . esc_url( $imagesrc ) . '" alt="' . esc_attr( $item['alt'] ) . '"' . apply_filters( 'soliloquy_output_image_attr', '', $id, $item, $data, $i ) . ' />';
+        $output .= '<img id="soliloquy-image-' . sanitize_html_class( $id ) . '" class="soliloquy-image soliloquy-image-' . $i . '" src="' . esc_url( $imagesrc ) . '" alt="' . ( isset( $item['alt'] ) ? esc_attr( $item['alt'] ) : '' ) . '"' . apply_filters( 'soliloquy_output_image_attr', '', $id, $item, $data, $i ) . ' />';
         $output  = apply_filters( 'soliloquy_output_after_image', $output, $id, $item, $data, $i );
 
         // If our image is linked, close the link.

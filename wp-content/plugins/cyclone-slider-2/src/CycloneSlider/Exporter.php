@@ -37,14 +37,16 @@ class CycloneSlider_Exporter {
 	}
 
 	/**
-	* Export
-	*
-	* Export main operation
-	*
-	* @param string $zip_file Full path and filename to zip file
-	* @param array $sliders_slugs_array Array of slider slugs to export
-	* @return void|Exception Do export or throw exception on failure
-	*/
+	 * Export
+	 *
+	 * Export main operation
+	 *
+	 * @param string $zip_file Full path and filename to zip file
+	 * @param array $sliders_slugs_array Array of slider slugs to export
+	 *
+	 * @return Exception|void Do export or throw exception on failure
+	 * @throws Exception
+	 */
 	public function export( $zip_file, array $sliders_slugs_array ) {
 		
 		// Check selected sliders
@@ -80,15 +82,17 @@ class CycloneSlider_Exporter {
 		
 		return true;
 	}
-	
+
 	/**
-	* Generate Sliders Export Data
-	*
-	* Generate export data array for selected sliders. Include slider settings and slides
-	*
-	* @param array $sliders_slugs_array Array of slider slugs to export
-	* @return array|false Export data array or false on fail
-	*/
+	 * Generate Sliders Export Data
+	 *
+	 * Generate export data array for selected sliders. Include slider settings and slides
+	 *
+	 * @param array $sliders_slugs_array Array of slider slugs to export
+	 *
+	 * @return array|false Export data array or false on fail
+	 * @throws Exception
+	 */
 	private function generate_sliders_export_data( array $sliders_slugs_array ) {
 		
 		$sliders_export_data = array();
@@ -111,14 +115,16 @@ class CycloneSlider_Exporter {
 		}
 		return $sliders_export_data;
 	}
-	
+
 	/**
-	*
-	* Generate image list array containing full file path to images
-	*
-	* @param array $sliders_export_data Array of slider slugs to export
-	* @return array|Exception Image list array or throws Exception on error
-	*/
+	 *
+	 * Generate image list array containing full file path to images
+	 *
+	 * @param array $sliders_export_data Array of slider slugs to export
+	 *
+	 * @return array|Exception Image list array or throws Exception on error
+	 * @throws Exception
+	 */
 	private function generate_images_list( array $sliders_export_data ) {
 
 		$images_list = array();
@@ -159,26 +165,29 @@ class CycloneSlider_Exporter {
 		return $images_export_data;
 		
 	}
-	
+
 	/**
-	* Generate Export Zip
-	*
-	* Generate export zip. Add images and export.json
-	*
-	* @param string $zip_file Zip file to save
-	* @param array $images_list Array of image file paths to include in the zip
-	* @param string $export_json JSON string to save
-	* @return string|Exception Path to zip file or Exception on fail
-	*/
+	 * Generate Export Zip
+	 *
+	 * Generate export zip. Add images and export.json
+	 *
+	 * @param string $zip_file Zip file to save
+	 * @param array $images_list Array of image file paths to include in the zip
+	 * @param string $export_json JSON string to save
+	 *
+	 * @return Exception|string Path to zip file or Exception on fail
+	 * @throws Exception
+	 */
 	private function generate_export_zip( $zip_file, array $images_list, $export_json ) {     
 
 		if( !class_exists('ZipArchive') ) {
 			throw new Exception( __( 'ZipArchive not supported.', $this->textdomain ) );
 		}
-		$zip = new $this->zip_archive;
-
-		if ( true !== $zip->open($zip_file, ZIPARCHIVE::OVERWRITE) ) {
-			throw new Exception( __( 'Error opening zip file.', $this->textdomain ) );
+		$zip_archive_class_name = $this->zip_archive;
+		$zip = new $zip_archive_class_name();
+		$result = $zip->open( $zip_file, ZipArchive::CREATE | ZipArchive::OVERWRITE );
+		if ( true !== $result ) {
+			throw new Exception( sprintf( __( 'Error opening zip file %s. Code: %s', $this->textdomain ), $zip_file, $result ) );
 		}
 		
 		// Add slide images

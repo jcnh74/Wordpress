@@ -3,7 +3,7 @@
 	global $wpdb;
 	
 	#############################################################################################
-	if( $_POST[ 'pppm_hidden' ] == 'pppm_bycat' ) {
+	if( isset($_POST[ 'pppm_hidden' ]) && $_POST[ 'pppm_hidden' ] == 'pppm_bycat' ) {
 	
 		foreach( $_POST['pppm_bycat_saving'] as $c_id => $c_value ){
 			

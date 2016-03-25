@@ -1,6 +1,125 @@
 Changelog
 =========
 
+#### 3.1.5 - March 22, 2016
+
+**Fixes**
+
+- Response message was shown for unsubmitted forms when using `{response}` in the form mark-up with multiple forms on the same page.
+
+**Improvements**
+
+- Scroll to form after form submission now uses native browser method `scrollIntoView()`.
+- Various improvements for right-to-left (RTL) sites.
+- The MailChimp API key is now obfuscated on the settings page.
+- Contact Form 7 integration now uses an early hook priority to ensure we run before any page redirects.
+
+**Additions**
+
+- Add position option for WooCommerce integration.
+- Add `{post}` tag whch can be used in form mark-up to fetch properties of the current page or post.
+
+#### 3.1.4 - February 29, 2016
+
+**Fixes**
+
+- Forms with address fields never passing validation.
+
+**Improvements**
+
+- Perform type checks on global variables to prevent issues with poorly coded plugins.
+- Add Interest Category ID to list overview table for easier debugging.
+- Updated Russian translations.
+
+
+#### 3.1.3 - February 17, 2016
+
+**Fixes**
+
+- Issue with API array responses (for the [MailChimp Activity add-on](https://wordpress.org/plugins/mc4wp-activity/), for example).
+
+**Improvements**
+
+- Updated Dutch, Portugese, Spanish and Italian translations.
+
+
+#### 3.1.2 - February 15, 2016
+
+**Fixes**
+
+- Form JavaScript not working when another plugins loads Dojo framework.
+- [ENTER] not submitting form settings or creating new-line.
+- Internal fields marked as required not passing form validation.
+- Deselecting all MailChimp lists wouldn't persist after saving form settings.
+- No sign-up request firing for lists with only an `EMAIL` field.
+
+**Improvements**
+
+- Show accepted choice values for dropdown and radio fields in lists overview.
+- Use all MailChimp lists for Lists Choice field, instead of just the selected ones.
+- Failsafed JavaScript for when any other script loads RequireJS globally.
+
+**Additions**
+
+- Added support for [Shortcake](https://wordpress.org/plugins/shortcode-ui/) plugin.
+- Error message for when no list is selected can now be customized from the form message settings.
+
+
+#### 3.1.1 - February 1, 2016
+
+**Fixes**
+
+- Field Helper not adding `type` attribute when building forms.
+- Field Helper not setting the correct `value` attribute for Hidden Groups.
+
+**Improvements**
+
+- Add sourcemaps to minified JavaScript files.
+- Add link to article on how to enable debug logging.
+- Field Helper now always shows both placeholder and value fields.
+
+
+#### 3.1 - January 26, 2016
+
+**Fixes**
+
+- `<input>` fields being stripped from form when saving as a role other than "superadmin" on MultiSite installations.
+- Certain actions like "renew lists" not working for users other than admin (if they have explicit access to settings pages).
+
+**Improvements**
+
+- Show Akamai firewall reference number when site's IP address is blocked
+- Make sure integrations have a MailChimp list selected before trying to subscribe.
+- Move less important settings to "Other" page.
+- When a field is required in MailChimp, it has to be required in forms as well now.
+- Allow including a `_mc4wp_email_type` field in forms to set an explicit email type.
+- Miscellaneous overall performance improvements.
+
+**Additions**
+
+- Added [debug logging](https://mc4wp.com/kb/how-to-enable-log-debugging/), which shows all warnings & errors the plugin encountered in communicating with MailChimp.
+- Add `get_lists_for_email( $email )` method to API class.
+- Add `MC4WP_Queue` class for better background processing of expensive operations.
+
+#### 3.0.12 - January 15, 2016
+
+**Fixes**
+
+- Incorrect hooks being fired for successful and unsuccessful form sign-ups (which also broke the success redirect).
+
+#### 3.0.11 - January 14, 2016
+
+**Improvements**
+
+- Allow splitting up "birthday" and "date" fields into separate fields with `day`, `month` and `year` index.
+- Improved algorithm for finding fields when integrating with Contact Form 7 or other custom forms.
+- Ninja Forms integration can now automatically find name-fields.
+- Ninja Forms integration can now use `mc4wp-` prefixed admin labels.
+
+**Additions**
+
+- `add_ecommerce_order()` and `delete_ecommerce_order()` methods to API class.
+
 #### 3.0.10 - January 6, 2016
 
 **Fixes**

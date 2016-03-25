@@ -56,12 +56,38 @@ class CycloneSlider_Importer {
 		}
 		
 		// Open zip and perform checks
-		$zip = new $this->zip_archive;
+		$zip = new ZipArchive();
 		$zip_result = $zip->open( $zip_file, ZipArchive::CHECKCONS);
 		if( true !== $zip_result ){
 			throw new Exception( sprintf( __('Error opening zip: %s', $this->textdomain), $this->get_zip_error( $zip_result ) ), 4);
 		}
-		
+
+		// Security checks
+		$export_json_found = false;
+		for( $i = 0; $i < $zip->numFiles; $i++ ){
+			$status = $zip->statIndex( $i );
+			$name = $status['name'];
+			$entry = $zip->getFromIndex( $i );
+			if (false !== $entry) {
+				if($name === 'export.json') {
+					$export_json_found = true;
+					if( null === json_decode($entry) ){  // Not a valid JSON
+						throw new Exception( sprintf( __('Security error. Invalid %s file.', $this->textdomain), $name ) );
+					}
+				} else {
+					$im = @imagecreatefromstring( $entry );
+					if(false !== $im){
+						imagedestroy($im);
+					} else { // Not an image
+						throw new Exception( sprintf( __('Security error. File %s is not an image.', $this->textdomain), $name ) );
+					}
+				}
+			}
+		}
+		if(!$export_json_found) {
+			throw new Exception( sprintf( __('Security error. Missing %s file.', $this->textdomain), 'export.json' ) );
+		}
+
 		// Extract zip to extraction dir
 		$extraction_dir = $this->imports_extracts_dir;
 		if( $zip->extractTo( $extraction_dir ) === false ){

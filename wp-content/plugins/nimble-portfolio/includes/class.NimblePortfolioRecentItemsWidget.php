@@ -6,7 +6,7 @@ if (!class_exists('NimblePortfolioRecentItemsWidget')) {
         function NimblePortfolioRecentItemsWidget() {
             $widget_ops = array('classname' => 'nimble-portfolio-recent-items-widget', 'description' => 'Display recent portfolio items in List style');
             $control_ops = array('width' => 250, 'height' => 250, 'id_base' => 'nimble-portfolio-recent-items-widget');
-            $this->WP_Widget('nimble-portfolio-recent-items-widget', 'Nimble Portfolio &mdash; Recent Items', $widget_ops, $control_ops);
+            parent::__construct('nimble-portfolio-recent-items-widget', 'Nimble Portfolio &mdash; Recent Items', $widget_ops, $control_ops);
         }
 
         public static function init() {

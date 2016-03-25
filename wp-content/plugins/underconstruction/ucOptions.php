@@ -111,7 +111,8 @@ if (isset($_POST['http_status']))
 if(isset($_POST['ip_address'])){
 
 	$ip = $_POST['ip_address'];
-	$ip = long2ip(ip2long($ip));
+	$ip = inet_ntop(inet_pton($ip));
+	//$ip = long2ip(ip2long($ip));
 
 	if($ip != "0.0.0.0"){
 		$array = get_option('underConstructionIPWhitelist');

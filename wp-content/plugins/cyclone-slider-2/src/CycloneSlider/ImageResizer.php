@@ -11,15 +11,18 @@ class CycloneSlider_ImageResizer {
         $this->image_sizes = $image_sizes;
 		$this->image_editor = $image_editor;
     }
-	
+
 	/**
 	 * Resize Images
-	 * 
+	 *
 	 * API to resize slide images
 	 *
-	 * @param int $slider_id Slider post ID
+	 * @param $slider_settings
 	 * @param array $slides Slides array
-	 * @return void
+	 *
+	 * @return bool
+	 * @throws Exception
+	 * @internal param int $slider_id Slider post ID
 	 */
 	public function resize_images( $slider_settings, $slides ){
 		

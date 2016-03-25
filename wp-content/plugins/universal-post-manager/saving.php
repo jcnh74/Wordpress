@@ -3,7 +3,7 @@
 	global $wpdb;
 	
 	#############################################################################################
-	if( $_POST[ 'pppm_hidden' ] == 'pppm_saving' ) {
+	if( isset($_POST[ 'pppm_hidden' ]) && $_POST[ 'pppm_hidden' ] == 'pppm_saving' ) {
 	
 		update_option( 'pppm_save_txt_button_type', intval( $_POST[ 'pppm_save_txt_button_type' ] ));
 		update_option( 'pppm_save_txt_button_url', pppm_filter_strip( $_POST[ 'pppm_save_txt_button_url' ] ));

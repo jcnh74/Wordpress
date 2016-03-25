@@ -3,8 +3,8 @@ Contributors: gVectors Team
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JHRHCQZ8N2G2W
 Tags: post, save post, save post as pdf, print, pdf, xml, text, word document, doc, pdf button, print button
 Requires at least: 2.7.0
-Tested up to: 4.0
-Stable tag: 1.4.1
+Tested up to: 4.4
+Stable tag: 1.5.0
 
 Allows your visitors to print your posts content and download as PDF, Doc, TXT, HTML, XML files. 
 
@@ -216,5 +216,10 @@ Initial version.
 = 1.4.1 =
 
 * Added : Option to Hide/Display Save and Print Buttons per post/page
+
+= 1.5.0 =
+
+* Fixed Bug : Tons of bug
+* Fixed Bug : WordPress 4.4.x compatibility
 
 

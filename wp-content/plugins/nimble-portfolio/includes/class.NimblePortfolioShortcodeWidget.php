@@ -6,7 +6,7 @@ if (!class_exists('NimblePortfolioShortcodeWidget')) {
         function NimblePortfolioShortcodeWidget() {
             $widget_ops = array('classname' => 'nimble-portfolio-shortcode-widget', 'description' => 'Shortcode support in the widget');
             $control_ops = array('width' => 400, 'height' => 250, 'id_base' => 'nimble-portfolio-shortcode-widget');
-            $this->WP_Widget('nimble-portfolio-shortcode-widget', 'Nimble Portfolio &mdash; Shortcode', $widget_ops, $control_ops);
+            parent::__construct('nimble-portfolio-shortcode-widget', 'Nimble Portfolio &mdash; Shortcode', $widget_ops, $control_ops);
         }
 
         public static function init() {

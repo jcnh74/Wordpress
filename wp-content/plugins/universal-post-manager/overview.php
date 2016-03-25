@@ -43,7 +43,7 @@
 	$pppm_options = array_merge ( $pppm_options, $pppm_role_options);
 	
 	
-	if( $_POST[ 'pppm_hidden' ] == 'x' ) {
+	if( isset($_POST[ 'pppm_hidden' ]) && $_POST[ 'pppm_hidden' ] == 'x' ) {
 	
 		foreach( $pppm_options as $pppm ) {
 		

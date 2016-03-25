@@ -223,3 +223,11 @@
     font-size:12px;
     line-height:1.5;
 }
+
+/* Lightbox */
+.mfp-title span {
+	line-height: 1.8;
+}
+.mfp-title small {
+	line-height: 1.3;
+}

@@ -1,13 +1,12 @@
 <?php if(!defined('ABSPATH')) die('Direct access denied.'); ?>
 
 <div class="wrap">
-	<?php echo $screen_icon; ?>
-	<h2><?php echo $page_title; ?></h2>
+	<?php echo esc_html($screen_icon); ?>
+	<h2><?php echo esc_html($page_title); ?></h2>
 	<div class="intro">
 		<p><?php _e('Play with these settings if Cyclone Slider is not working or if you want to optimize it.', $textdomain); ?></p>
 	</div>
 	<?php settings_errors();?>
-	<?php echo $debug; ?>
 	<form method="post" action="options.php">
 		<?php
 		echo $settings_fields;

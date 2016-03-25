@@ -442,8 +442,9 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * Handle an incoming request. Should be called before calling `is_valid`.
+	 * Handle an incoming request. Should be called before calling validate() method.
 	 *
+	 * @see MC4WP_Form::validate
 	 * @param MC4WP_Request $request
 	 * @return void
 	 */
@@ -452,21 +453,20 @@ class MC4WP_Form {
 		$this->raw_data = $request->post->all();
 		$this->data = $this->parse_request_data( $request );
 
-
 		// update form configuration from given data
 		$config = array();
+		$map = array(
+			'_mc4wp_lists' => 'lists',
+			'_mc4wp_action' => 'action',
+			'_mc4wp_form_element_id' => 'element_id',
+			'_mc4wp_email_type' => 'email_type'
+		);
 
 		// use isset here to allow empty lists (which should show a notice)
-		if( isset( $this->raw_data['_mc4wp_lists'] ) ) {
-			$config['lists'] = $this->raw_data['_mc4wp_lists'];
-		}
-
-		if( isset( $this->raw_data['_mc4wp_action'] ) ) {
-			$config['action'] = $this->raw_data['_mc4wp_action'];
-		}
-
-		if( isset( $this->raw_data['_mc4wp_form_element_id'] ) ) {
-			$config['element_id'] = $this->raw_data['_mc4wp_form_element_id'];
+		foreach( $map as $param_key => $config_key ) {
+			if( isset( $this->raw_data[ $param_key ] ) ) {
+				$config[ $config_key ] = $this->raw_data[ $param_key ];
+			}
 		}
 
 		if( ! empty( $config ) ) {
@@ -545,6 +545,11 @@ class MC4WP_Form {
 			$this->config['action'] = 'subscribe';
 		}
 
+		// email_type should be a valid value
+		if( ! in_array( $this->config['email_type'], array( 'html', 'text' ) ) ) {
+			$this->config['email_type'] = '';
+		}
+
 		return $this->config;
 	}
 
@@ -572,6 +577,7 @@ class MC4WP_Form {
 		 * @param MC4WP_Form $form
 		 */
 		$lists = (array) apply_filters( 'mc4wp_form_lists', $lists, $form );
+
 		return $lists;
 	}
 
@@ -621,7 +627,16 @@ class MC4WP_Form {
 
 		// explode required fields (generated in JS) to an array (uppercased)
 		$required_fields_string = strtoupper( $this->settings['required_fields'] );
+
+		// remove array-formatted fields
+		// workaround for #261 (https://github.com/ibericode/mailchimp-for-wordpress/issues/261)
+		$required_fields_string = preg_replace( '/\[\w+\]/', '', $required_fields_string );
+
+		// turn into an array
 		$required_fields = explode( ',', $required_fields_string );
+
+		// We only need unique values here.
+		$required_fields = array_unique( $required_fields );
 
 		// EMAIL is not a required field as it has its own validation rules
 		$required_fields = array_diff( $required_fields, array( 'EMAIL' ) );
@@ -641,7 +656,7 @@ class MC4WP_Form {
 		 * @param MC4WP_Form $form
 		 */
 		$required_fields = (array) apply_filters( 'mc4wp_form_required_fields', $required_fields, $form );
-		
+
 		return $required_fields;
 	}
 

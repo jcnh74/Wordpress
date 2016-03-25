@@ -133,13 +133,14 @@ class CycloneSlider_Data {
         $settings_to_save['random'] = (int) ( $settings['random'] );
         $settings_to_save['resize'] = (int) ( $settings['resize'] );
         $settings_to_save['width_management'] = sanitize_text_field( $settings['width_management'] );
-        $settings_to_save['easing'] = sanitize_text_field( $settings['easing'] );
-        $settings_to_save['resize_option'] = sanitize_text_field( $settings['resize_option'] );
-        $settings_to_save['allow_wrap'] = sanitize_text_field( $settings['allow_wrap'] );
-        $settings_to_save['dynamic_height'] = sanitize_text_field( $settings['dynamic_height'] );
-        $settings_to_save['delay'] = (int) ( $settings['delay'] );
-        $settings_to_save['swipe'] = sanitize_text_field( $settings['swipe'] );
-        
+        // Pro options
+        $settings_to_save['easing'] = '';
+        $settings_to_save['resize_option'] = 'auto';
+        $settings_to_save['allow_wrap'] = 'true';
+        $settings_to_save['dynamic_height'] = 'off';
+        $settings_to_save['delay'] = 0;
+        $settings_to_save['swipe'] = 'false';
+
         $settings_to_save = apply_filters('cycloneslider_settings', $settings_to_save, $slider_id); // Apply filters before saving
         
         delete_post_meta($slider_id, '_cycloneslider_settings');

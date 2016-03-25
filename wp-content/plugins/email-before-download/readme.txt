@@ -13,7 +13,7 @@ Plugin homepage: http://www.mandsconsulting.com/products/wp-email-before-downloa
 == Description ==
 
 Email Before Download presents your users with a form where they submit information, like their name and email address, prior to receiving a download. This plugin integrates with the popular [Contact Form 7](http://bit.ly/dNzVJd) and [WordPress Download Monitor](http://bit.ly/ifff4y) plugins, allowing you to create any form you like and manage/monitor your file downloads.  You can also EXPORT a list of users that have downloaded files from the plug-in's settings page.  Prior to installing Email Before Download, please confirm each of the dependent plugins is already installed and working independently.
-We recently updated the deprecated WPDB escape functionality to new one. EBD Version 3.4+ is compatible with WordPress 3.6+. You can download the version compatible with older version of WordPress at [Email Before Dwonload](http://bit.ly/1uThydb)
+We recently updated the deprecated WPDB escape functionality to new one. EBD Version 3.4+ is compatible with WordPress 3.6+. You can download the version compatible with older version of WordPress at [Email Before Download](http://bit.ly/1uThydb)
 Short note about [WordPress Download Monitor](http://bit.ly/ifff4y). The author has done a complete rewrite of the plugin. But we decided to to keep Email Before Download compatible with the old version of WordPress Download Monitor which can still be downloaded from this url http://downloads.wordpress.org/plugin/download-monitor.3.3.6.zip
 
 **NOTE:**  Email Before Download  version 3.2.9 or above is required for Contact Form 7 version 3.9 and above. Thank you for using our plugin.
@@ -59,7 +59,7 @@ If you have a problem or need assistance more rapidly, we  now offer a paid supp
 
 Yes.  We store a log of the downloads and you can export a CSV file of this from the Email Before Download settings page in your admin screens.
 
-= What if I don't use the Contact Form 7 and/or Download Monintor Plugins? =
+= What if I don't use the Contact Form 7 and/or Download Monitor Plugins? =
 
 You will not be able to use this version of Email Before Download without these dependent plugins.  If you have specific reasons to avoid using the dependent plugins, please contact us and let us know the reason so we can take it into consideration.
 
@@ -105,6 +105,9 @@ This is the list of all short code attributes that can be used.   Some of them o
 
 
 == Changelog ==
+
+=3.4.2=
+* Fixed issue regarding the download button on some themes where download button would display in wrong format.
 
 =3.4.1=
 * Fixed issue related to SQL functions used in code.

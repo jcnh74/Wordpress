@@ -3,8 +3,8 @@ Contributors: kosinix
 Donate link: http://www.codefleet.net/donate/
 Tags: slider, slideshow, drag-and-drop, wordpress-slider, wordpress-slideshow, cycle 2, jquery, responsive, translation-ready, custom-post, cyclone-slider
 Requires at least: 3.5
-Tested up to: 4.3.1
-Stable tag: 2.10.1
+Tested up to: 4.4.2
+Stable tag: 2.10.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,29 @@ Inside `wp-content` create a folder named "cycloneslider". Add your templates in
 5. Slideshow Settings
 
 == Changelog ==
+
+= 2.10.7 - 2015-03-03 =
+* Fix Width Management and Resize Images not working
+
+= 2.10.6 - 2015-03-01 =
+* New. Added security checks to export zip.
+
+= 2.10.5 =
+* Fix. Multi-language not working.
+* Change. Updated main .pot language file.
+* Change. Modified plugin header to match the current WordPress requirements.
+
+= 2.10.4 =
+* Fix. Escaped all echo of dynamic variables inside view files for security.
+* Change. Move screenshots to svn assets. Results to lesser plugin file size.
+* Change. Added classes for improved updater for Pro.
+
+= 2.10.3 =
+* Fix. Fixed fatal error when ZipArchive is missing from PHP.
+* New. Added 'cyclone_slider_services' filter.
+
+= 2.10.2 =
+* Fix. Fixed error opening zip file in exporter.
 
 = 2.10.1 =
 * Fix. Fixed Strict Standards error in PHP 5.4 and above

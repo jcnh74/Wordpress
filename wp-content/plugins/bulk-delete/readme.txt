@@ -4,7 +4,7 @@ Tags: mass, bulk, delete, post, comment, draft, revision, page, user, meta field
 Requires at least: 3.9  
 Tested up to: 4.4  
 Donate Link: http://sudarmuthu.com/if-you-wanna-thank-me  
-Stable tag: 5.5.3  
+Stable tag: 5.5.4  
 
 Bulk delete posts, pages, users, attachments and meta fields based on different conditions and filters.
 
@@ -274,6 +274,14 @@ You can contact us by posting about it in our [support forum](http://bulkwp.com/
 
 This Readme file was generated using <a href = 'http://sudarmuthu.com/wordpress/wp-readme'>wp-readme</a>, which generates readme files for WordPress Plugins.
 == Changelog ==
+
+= 2016-02-13 - v5.5.4 - (Dev time: 5 hours) =
+
+- Bug Fixes
+	- Security fix that prevents non-privileged users from deleting posts.
+
+- Enhancements
+	- Lot of code refactoring to improve quality.
 
 = 2015-11-02 - v5.5.3 - (Dev time: 3 hours) =
 - New Features
@@ -561,6 +569,9 @@ This Readme file was generated using <a href = 'http://sudarmuthu.com/wordpress/
 *   First version
 
 == Upgrade Notice ==
+
+= 5.5.4 =
+Fixed a security bug that allowed non-privileged users to delete posts
 
 = 5.5.3 =
 Added the ability to delete users based on registration date

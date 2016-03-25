@@ -3,7 +3,7 @@
 	global $wpdb;
 	
 	#############################################################################################
-	if( $_POST[ 'pppm_hidden' ] == 'pppm_print' ) {
+	if( isset($_POST[ 'pppm_hidden' ]) && $_POST[ 'pppm_hidden' ] == 'pppm_print' ) {
 	
 		update_option( 'pppm_save_print_img_max_width', intval( $_POST[ 'pppm_save_print_img_max_width' ] ));
 		update_option( 'pppm_save_print_button_type', intval( $_POST[ 'pppm_save_print_button_type' ] ));
@@ -14,7 +14,7 @@
 		
 		echo '<div class="updated"><p><strong>'. __( 'Options saved.' ) .'</strong></p></div>';
 	}
-	elseif( $_POST[ 'pppm_hidden' ] == 'pppm_pt' ) {
+	elseif( isset($_POST[ 'pppm_hidden' ]) && $_POST[ 'pppm_hidden' ] == 'pppm_pt' ) {
 	
 		update_option( 'pppm_pt_head_date', pppm_filter_strip( $_POST[ 'pppm_pt_head_date' ] ));
 		update_option( 'pppm_pt_head_site', pppm_filter_strip( $_POST[ 'pppm_pt_head_site' ] ));
