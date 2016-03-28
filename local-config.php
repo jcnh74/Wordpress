@@ -6,4 +6,4 @@ define( 'DB_PASSWORD', 'surfer' );
 define( 'DB_HOST',     'localhost'  );
 
 //define('DOMAIN_CURRENT_SITE', 'wordpress.local');
-?>
+
