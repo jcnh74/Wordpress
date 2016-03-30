@@ -10,8 +10,8 @@ class CycloneSlider_WidgetSlider extends WP_Widget {
     public function __construct() {
         parent::__construct(
             'cyclone-slider-widget', // Base ID
-            __( 'Cyclone Slider Widget', 'cycloneslider' ), // Name
-            array( 'description' => __( 'Widget for displaying sliders.', 'cycloneslider' ), ) // Args
+            __( 'Cyclone Slider Widget', 'cyclone-slider-2' ), // Name
+            array( 'description' => __( 'Widget for displaying sliders.', 'cyclone-slider-2' ), ) // Args
         );
     }
     
@@ -62,7 +62,7 @@ class CycloneSlider_WidgetSlider extends WP_Widget {
 
 ?>
         <p>
-            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'cycloneslider'); ?></label>
+            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'cyclone-slider-2'); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php esc_attr_e($instance['title']); ?>" />
         </p>
         <p>
@@ -76,7 +76,7 @@ class CycloneSlider_WidgetSlider extends WP_Widget {
         );
         if($my_query->have_posts()):
         ?>
-            <label for="<?php echo $this->get_field_id('slideshow'); ?>"><?php _e('Select a Slider:', 'cycloneslider'); ?></label>
+            <label for="<?php echo $this->get_field_id('slideshow'); ?>"><?php _e('Select a Slider:', 'cyclone-slider-2'); ?></label>
             <select class="widefat" id="<?php echo $this->get_field_id('slideshow'); ?>" name="<?php echo $this->get_field_name('slideshow'); ?>">
                 <option value=""></option>
                 <?php
@@ -91,7 +91,7 @@ class CycloneSlider_WidgetSlider extends WP_Widget {
                 ?>
             </select>
         <?php else: ?>
-            <?php _e('No sliders found.', 'cycloneslider'); ?>
+            <?php _e('No sliders found.', 'cyclone-slider-2'); ?>
         <?php endif; ?>
         </p>
 <?php

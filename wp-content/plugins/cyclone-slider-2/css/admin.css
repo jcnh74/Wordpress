@@ -644,6 +644,10 @@ input:disabled{
 #side-sortables .cs-get-more > * {
 	margin-bottom: 5px;
 }
+.cs-templates-buttons {
+	clear: both;
+	padding: 5px 8px;
+}
 
 /*** Preview ***/
 #cyclone-slider-preview-metabox .inside{
@@ -708,4 +712,10 @@ label[for="force_resize"]{
 
 .export-page-list  {
 	list-style:  inside square;
+}
+
+.cs-upgrade-action a {
+	text-decoration: none;
+	display: block;
+	padding:1px 2px;
 }

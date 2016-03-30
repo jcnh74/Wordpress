@@ -6,5 +6,5 @@ if(!empty($post->post_name)):
 		cyclone_slider($post->post_name);
 	endif;
 else:
-	?><p><?php _e('Your preview will appear here.','cycloneslider'); ?></p><?php
+	?><p><?php _e('Your preview will appear here.', 'cyclone-slider-2'); ?></p><?php
 endif;

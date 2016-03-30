@@ -1,23 +1,59 @@
 <?php
 /**
-* Class for displaying cyclone admin screen
+* Class for displaying the admin screen
 */
 class CycloneSlider_Admin {
-    
+
+	/**
+     * @var int
+     */
     public $slider_count;
+	/**
+     * @var int
+     */
     protected $message_id;
+	/**
+     * @var CycloneSlider_AssetLoader
+     */
     protected $asset_loader;
-    protected $textdomain;
+	/**
+     * @var CycloneSlider_Data
+     */
     protected $data;
+	/**
+     * @var boolean
+     */
     protected $debug;
+	/**
+     * @var CycloneSlider_View
+     */
     protected $view;
+	/**
+     * @var string
+     */
     protected $nonce_name;
+	/**
+     * @var string
+     */
     protected $nonce_action;
+	/**
+     * @var string
+     */
     protected $url;
-    
-    public function __construct( $asset_loader, $textdomain, $data, $debug, $view, $nonce_name, $nonce_action, $url ){
+
+	/**
+     * CycloneSlider_Admin constructor.
+     *
+     * @param $asset_loader
+     * @param $data
+     * @param $debug
+     * @param $view
+     * @param $nonce_name
+     * @param $nonce_action
+     * @param $url
+     */
+    public function __construct( $asset_loader, $data, $debug, $view, $nonce_name, $nonce_action, $url ){
         $this->asset_loader = $asset_loader;
-        $this->textdomain = $textdomain;
         $this->data = $data;
         $this->debug = $debug;
         $this->view = $view;
@@ -25,7 +61,11 @@ class CycloneSlider_Admin {
         $this->nonce_action = $nonce_action;
         $this->url = $url;
     }
-    
+
+
+	/**
+     * Auto run
+     */
     public function run() {
         
         // Set defaults
@@ -71,13 +111,18 @@ class CycloneSlider_Admin {
     
         // Add hook for ajax operations if logged in
         add_action( 'wp_ajax_cycloneslider_get_video', array( $this, 'cycloneslider_get_video' ) );
-        
+
+        add_action( 'post_submitbox_start', array( $this, 'upgrade_link' ));
         
     }
-    
+
     /**
      * Add js and css for WP media manager.
-     */ 
+     *
+     * @param $classes
+     *
+     * @return string
+     */
     function body_class( $classes ) {
         if('cycloneslider' == get_post_type()){
             $classes .= 'cycloneslider';
@@ -94,16 +139,16 @@ class CycloneSlider_Admin {
         register_post_type( 'cycloneslider',
             array(
                 'labels' => array(
-                    'name' => __('Cyclone Slider', $this->textdomain),
-                    'singular_name' => __('Slideshow', $this->textdomain),
-                    'add_new' => __('Add Slideshow', $this->textdomain),
-                    'add_new_item' => __('Add New Slideshow', $this->textdomain),
-                    'edit_item' => __('Edit Slideshow', $this->textdomain),
-                    'new_item' => __('New Slideshow', $this->textdomain),
-                    'view_item' => __('View Slideshow', $this->textdomain),
-                    'search_items' => __('Search Slideshows', $this->textdomain),
-                    'not_found' => __('No slideshows found', $this->textdomain),
-                    'not_found_in_trash' => __('No slideshows found in Trash', $this->textdomain)
+                    'name' => __('Cyclone Slider', 'cyclone-slider-2'),
+                    'singular_name' => __('Slideshow', 'cyclone-slider-2'),
+                    'add_new' => __('Add Slideshow', 'cyclone-slider-2'),
+                    'add_new_item' => __('Add New Slideshow', 'cyclone-slider-2'),
+                    'edit_item' => __('Edit Slideshow', 'cyclone-slider-2'),
+                    'new_item' => __('New Slideshow', 'cyclone-slider-2'),
+                    'view_item' => __('View Slideshow', 'cyclone-slider-2'),
+                    'search_items' => __('Search Slideshows', 'cyclone-slider-2'),
+                    'not_found' => __('No slideshows found', 'cyclone-slider-2'),
+                    'not_found_in_trash' => __('No slideshows found in Trash', 'cyclone-slider-2')
                 ),
                 'supports' => array('title'),
                 'public' => false,
@@ -137,34 +182,38 @@ class CycloneSlider_Admin {
             }
         }
     }
-    
+
     /**
      * Add custom messages
-     * 
+     *
+     * @param $messages
+     *
      * @return array Messages for cyclone
      */
     public function post_updated_messages($messages){
         global $post, $post_ID;
         $messages['cycloneslider'] = array(
             0  => '',
-            1  => __( 'Slideshow updated.', $this->textdomain ),
-            2  => __( 'Custom field updated.', $this->textdomain ),
-            3  => __( 'Custom field deleted.', $this->textdomain ),
-            4  => __( 'Slideshow updated.', $this->textdomain ),
-            5  => __( 'Slideshow updated.', $this->textdomain ),
-            6  => __( 'Slideshow published.', $this->textdomain ),
-            7  => __( 'Slideshow saved.', $this->textdomain ),
-            8  => __( 'Slideshow updated.', $this->textdomain ),
-            9  => __( 'Slideshow updated.', $this->textdomain ),
-            10 => __( 'Slideshow updated.', $this->textdomain )
+            1  => __( 'Slideshow updated.', 'cyclone-slider-2' ),
+            2  => __( 'Custom field updated.', 'cyclone-slider-2' ),
+            3  => __( 'Custom field deleted.', 'cyclone-slider-2' ),
+            4  => __( 'Slideshow updated.', 'cyclone-slider-2' ),
+            5  => __( 'Slideshow updated.', 'cyclone-slider-2' ),
+            6  => __( 'Slideshow published.', 'cyclone-slider-2' ),
+            7  => __( 'Slideshow saved.', 'cyclone-slider-2' ),
+            8  => __( 'Slideshow updated.', 'cyclone-slider-2' ),
+            9  => __( 'Slideshow updated.', 'cyclone-slider-2' ),
+            10 => __( 'Slideshow updated.', 'cyclone-slider-2' )
         );
         return $messages;
     }
-    
+
     /**
      * Show custom messages
-     * 
-     * @return array The array of locations containing path and url 
+     *
+     * @param $location
+     *
+     * @return array The array of locations containing path and url
      */
     public function throw_message($location) {
         $location = add_query_arg( 'message', $this->message_id, $location );
@@ -190,7 +239,7 @@ class CycloneSlider_Admin {
         
         add_meta_box(
             'cyclone-slides-metabox',
-            __('Slides', $this->textdomain),
+            __('Slides', 'cyclone-slider-2'),
             array( $this, 'render_slides_meta_box' ),
             'cycloneslider' ,
             'normal',
@@ -199,7 +248,7 @@ class CycloneSlider_Admin {
         
         add_meta_box(
             'cyclone-slider-preview-metabox',
-            __('Slider Preview', $this->textdomain),
+            __('Slider Preview', 'cyclone-slider-2'),
             array( $this, 'render_slider_preview_meta_box' ),
             'cycloneslider' ,
             'side',
@@ -208,7 +257,7 @@ class CycloneSlider_Admin {
         
         add_meta_box(
             'cyclone-slider-codes',
-            __('Get Slider Codes', $this->textdomain),
+            __('Get Slider Codes', 'cyclone-slider-2'),
             array( $this, 'render_slider_codes' ),
             'cycloneslider' ,
             'side',
@@ -217,7 +266,7 @@ class CycloneSlider_Admin {
         
         add_meta_box(
             'cyclone-slider-properties-metabox',
-            __('Basic Settings', $this->textdomain),
+            __('Basic Settings', 'cyclone-slider-2'),
             array( $this, 'render_slider_properties_meta_box' ),
             'cycloneslider' ,
             'side',
@@ -226,7 +275,7 @@ class CycloneSlider_Admin {
         
         add_meta_box(
             'cyclone-slider-advanced-settings-metabox',
-            __('Advanced Settings', $this->textdomain),
+            __('Advanced Settings', 'cyclone-slider-2'),
             array( $this, 'render_slider_advanced_settings_meta_box' ),
             'cycloneslider' ,
             'side',
@@ -235,7 +284,7 @@ class CycloneSlider_Admin {
         
         add_meta_box(
             'cyclone-slider-templates-metabox',
-            __('Templates', $this->textdomain),
+            __('Templates', 'cyclone-slider-2'),
             array( $this, 'render_slider_templates_meta_box' ),
             'cycloneslider' ,
             'normal',
@@ -244,18 +293,19 @@ class CycloneSlider_Admin {
         
         add_meta_box(
             'cyclone-slider-id',
-            __('Slideshow ID', $this->textdomain),
+            __('Slideshow ID', 'cyclone-slider-2'),
             array( $this, 'render_slider_id' ),
             'cycloneslider' ,
             'normal',
             'low'
         );
     }
-    
-    
-    
+
+
     /**
      * Metabox for slides
+     *
+     * @param $post
      */
     public function render_slides_meta_box($post){
         
@@ -270,12 +320,12 @@ class CycloneSlider_Admin {
             
                 $image_url = $this->get_slide_img_thumb($slide['id']);
                 $image_url = apply_filters('cycloneslider_preview_url', $image_url, $slide);
-                $box_title = __('Slide', $this->textdomain).' '.($i+1);
+                $box_title = __('Slide', 'cyclone-slider-2').' '.($i+1);
                 if( '' != trim($slide['title']) and 'image' == $slide['type'] ){
                     $box_title = $box_title. ' - '.$slide['title'];
                 }
                 if( '1' == $slide['hidden'] ){
-                    $box_title = $box_title. ' - '.__('[Hidden]', $this->textdomain);
+                    $box_title = $box_title. ' - '.__('[Hidden]', 'cyclone-slider-2');
                 }
                 $box_title = apply_filters('cycloneslider_box_title', $box_title);
                 
@@ -301,9 +351,11 @@ class CycloneSlider_Admin {
         
         $this->view->render('slides.php', $vars);
     }
-    
+
     /**
      * Metabox for slider codes
+     *
+     * @param $post
      */
     public function render_slider_codes( $post ){
         
@@ -320,9 +372,11 @@ class CycloneSlider_Admin {
         $this->view->render('slider-codes.php', $vars);
 
     }
-    
+
     /**
      * Metabox for basic settings
+     *
+     * @param $post
      */
     public function render_slider_properties_meta_box( $post ){
         $slider_settings = $this->data->get_slider_settings( $post->ID );
@@ -335,9 +389,11 @@ class CycloneSlider_Admin {
         $this->view->render('slider-settings.php', $vars);
 
     }
-    
+
     /**
      * Metabox for advanced settings
+     *
+     * @param $post
      */
     public function render_slider_advanced_settings_meta_box( $post ){
         $slider_settings = $this->data->get_slider_settings( $post->ID );
@@ -351,10 +407,12 @@ class CycloneSlider_Admin {
         $this->view->render( 'slider-advanced-settings.php', $vars );
 
     }
-    
-    
+
+
     /**
      * Metabox for preview
+     *
+     * @param $post
      */
     public function render_slider_preview_meta_box($post){
         
@@ -370,19 +428,23 @@ class CycloneSlider_Admin {
         
         $this->view->render('slider-preview.php', $vars);
     }
-    
+
     /**
      * Metabox for templates
+     *
+     * @param $post
      */
     public function render_slider_templates_meta_box($post){
 
         $slider_settings = $this->data->get_slider_settings($post->ID);
         $templates = $this->data->get_all_templates();
+
         $settings_data = $this->data->get_settings_page_data(); // Get checked templates
 		$active_templates = $this->data->get_enabled_templates($settings_data, $templates);
         
         ksort ( $templates ); // Sort assoc array alphabetically
         foreach($templates as $name=>$template){
+            $templates[$name]['name'] = $template['name'];
             if( $name == $slider_settings['template'] ){
                 $templates[$name]['selected'] = true;
             } else {
@@ -398,19 +460,22 @@ class CycloneSlider_Admin {
             $templates[$name]['warning'] = '';
         
             if( $template['location_name'] == 'core' ){
-                $templates[$name]['location_name'] = __('Core', $this->textdomain);
-                $templates[$name]['location_details'] = sprintf( __("Located inside the plugin directory:<br> <strong>%s</strong>", $this->textdomain ), $template['path']);
+                $templates[$name]['location_name'] = __('Core', 'cyclone-slider-2');
+                $templates[$name]['location_details'] = sprintf( __('You should not make changes to templates in this location. All your changes will be gone when the plugin is updated. <br />Location: <strong>%s</strong>', 'cyclone-slider-2' ), $template['path']);
             }
             if( $template['location_name'] == 'active-theme' ){
                 $templates[$name]['location_name'] = 'Active Theme';
-                $templates[$name]['location_details'] = sprintf( __("Located inside your currently active theme:<br> <strong>%s</strong>", $this->textdomain ), $template['path']);
-                $templates[$name]['warning'] = sprintf( __('Your template is in danger of being overwritten when you upgrade your theme. Please move it inside %s.', $this->textdomain ), 'wp-content/cycloneslider' );
+                $templates[$name]['location_details'] = sprintf( __("Location: <strong>%s</strong>", 'cyclone-slider-2' ), $template['path']);
+                $templates[$name]['warning'] = sprintf( __('Your template is in danger of being overwritten when you upgrade your theme. Please consider creating a WordPress plugin Cyclone Slider template.', 'cyclone-slider-2' ) );
             }
             if( $template['location_name'] == 'wp-content' ){
                 $templates[$name]['location_name'] = 'WP Content';
-                $templates[$name]['location_details'] = sprintf( __("Located inside wp-content directory:<br> <strong>%s</strong>", $this->textdomain), $template['path'] );
+                $templates[$name]['location_details'] = sprintf( __("Location: <strong>%s</strong>", 'cyclone-slider-2'), $template['path'] );
             }
-            
+            if( $template['location_name'] == 'plugin' ){
+                $templates[$name]['location_name'] = 'Plugin';
+                $templates[$name]['location_details'] = sprintf( __("Location: <strong>%s</strong>", 'cyclone-slider-2'), $template['path'] );
+            }
             // Remove inactive templates
             if($active_templates[$name]==0){
                 unset($templates[$name]);
@@ -424,9 +489,11 @@ class CycloneSlider_Admin {
         
         $this->view->render('template-selection.php', $vars);
     }
-    
+
     /**
      * Metabox for slider ID
+     *
+     * @param $post
      */
     public function render_slider_id( $post ){
         
@@ -436,7 +503,12 @@ class CycloneSlider_Admin {
         $this->view->render('slider-id.php', $vars);
 
     }
-    
+
+    public function upgrade_link(){
+        echo '<div class="cs-upgrade-action"><a href="https://www.codefleet.net/cyclone-slider-pro/">Upgrade to Pro</a></div>';
+        echo '<div class="clear"></div>';
+    }
+
     /**
      * Hook to admin footer
      */
@@ -445,7 +517,7 @@ class CycloneSlider_Admin {
         if(get_post_type()=='cycloneslider'){
             // Empty Slide
             $vars = array();
-            $vars['box_title'] = __('Slide *', $this->textdomain);
+            $vars['box_title'] = __('Slide *', 'cyclone-slider-2');
             $vars['image_url'] = '';
             $vars['i'] = '{id}';
             $vars['slide'] = $this->data->get_slide_defaults();
@@ -465,10 +537,14 @@ class CycloneSlider_Admin {
             $this->view->render('slides-skeleton.php', $vars);
         }
     }
-   
-    
+
+
     /**
      * Get slide image thumb from id. False on fail
+     *
+     * @param $attachment_id
+     *
+     * @return array|bool|false|string
      */
     private function get_slide_img_thumb($attachment_id){
         $attachment_id = (int) $attachment_id;
@@ -479,9 +555,15 @@ class CycloneSlider_Admin {
         }
         return false;
     }
-    
+
     /**
      * Replace text in media button for WP < 3.5
+     *
+     * @param $translation
+     * @param $text
+     * @param $domain
+     *
+     * @return string
      */
     public function replace_text_in_thickbox($translation, $text, $domain ) {
         $http_referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
@@ -494,27 +576,49 @@ class CycloneSlider_Admin {
         }
         return $translation;
     }
-    
-    // Add attachment ID as html5 data attr in thickbox
+
+	/**
+     * Add attachment ID as html5 data attr in thickbox
+     * @param $html
+     * @param $id
+     * @param $caption
+     * @param $title
+     * @param $align
+     * @param $url
+     * @param $size
+     * @param string $alt
+     *
+     * @return mixed
+     */
     public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt = '' ){
         if(strpos($html, '<img data-id="')===false){
             $html = str_replace('<img', '<img data-id="'.$id.'" ', $html);
         }
         return $html;
     }
-    
-    // Modify columns
-    public function slideshow_columns($columns) {
-        $columns = array();
-        $columns['title']= __('Slideshow Name', $this->textdomain);
-        $columns['template']= __('Template', $this->textdomain);
-        $columns['images']= __('No. of Slides', $this->textdomain);
-        $columns['id']= __('Slideshow ID', $this->textdomain);
-        $columns['shortcode']= __('Shortcode', $this->textdomain);
+
+	/**
+     * Modify columns
+     *
+     * @param $columns
+     *
+     * @return array
+     */
+    public function slideshow_columns( $columns ) {
+        unset($columns['date']);
+        $columns['title']= __('Slideshow Name', 'cyclone-slider-2');
+        $columns['template']= __('Template', 'cyclone-slider-2');
+        $columns['images']= __('No. of Slides', 'cyclone-slider-2');
+        $columns['id']= __('Slideshow ID', 'cyclone-slider-2');
+        $columns['shortcode']= __('Shortcode', 'cyclone-slider-2');
         return $columns;
     }
-    
-    // Add content to custom columns
+
+	/**
+     * Add content to custom columns
+     * @param $column_name
+     * @param $post_id
+     */
     public function custom_column( $column_name, $post_id ){
         if ($column_name == 'template') {
             $settings = $this->data->get_slider_settings($post_id);
@@ -532,10 +636,15 @@ class CycloneSlider_Admin {
             echo '[cycloneslider id="'.$post->post_name.'"]';
         }  
     }
-    
-    
-    
-    // Compare the value from admin and shortcode. If shortcode value is present and not empty, use it, otherwise return admin value
+
+	/**
+     * Compare the value from admin and shortcode. If shortcode value is present and not empty, use it, otherwise return admin value
+     *
+     * @param $admin_val
+     * @param $shortcode_val
+     *
+     * @return mixed
+     */
     public function get_comp_slider_setting($admin_val, $shortcode_val){
         if($shortcode_val!==null){//make sure its really null and not just int zero 0
             return $shortcode_val;
@@ -543,7 +652,13 @@ class CycloneSlider_Admin {
         return $admin_val;
     }
 
-    // Return array of slide urls from meta
+	/**
+     * Return array of slide urls from meta
+     *
+     * @param $slider_metas
+     *
+     * @return array
+     */
     public function get_slides_from_meta($slider_metas){
         $slides = array();
         if(is_array($slider_metas)){
@@ -597,11 +712,13 @@ class CycloneSlider_Admin {
         echo json_encode($retval);
         die();
     }
-    
+
     /**
      * Get video thumb url
      *
      * @param string $url A valid youtube or vimeo url
+     *
+     * @return bool|string
      */
     public function get_video_thumb_from_url($url){
         $url = esc_url_raw($url);
@@ -617,9 +734,13 @@ class CycloneSlider_Admin {
         
         return false;
     }
-    
+
     /**
      * Return vimeo video id
+     *
+     * @param $url
+     *
+     * @return bool|string
      */
     public function get_vimeo_id($url){
         
@@ -636,8 +757,8 @@ class CycloneSlider_Admin {
     /**
      * Get vimeo video thumbnail image
      *
-     * @param int Vimeo ID.
-     * @param string Size can be: thumbnail_small, thumbnail_medium, thumbnail_large.
+     * @param int $video_id Vimeo ID.
+     * @param string $size Size can be: thumbnail_small, thumbnail_medium, thumbnail_large.
      *
      * @return string URL of thumbnail image.
      */
@@ -652,7 +773,7 @@ class CycloneSlider_Admin {
     /**
      * Get youtube video thumbnail image
      *
-     * @param int Youtube ID.
+     * @param int $video_id Youtube ID.
      *
      * @return string URL of thumbnail image.
      */
@@ -692,4 +813,4 @@ class CycloneSlider_Admin {
         
         return false;
     }
-} // end class
+}

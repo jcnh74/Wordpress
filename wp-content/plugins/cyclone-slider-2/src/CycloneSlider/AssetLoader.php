@@ -3,10 +3,22 @@
 * Class for handling styles and scripts
 */
 class CycloneSlider_AssetLoader {
-    
+
+	/**
+	 * @var string
+	 */
 	protected $url;
+	/**
+	 * @var string
+	 */
 	protected $version;
-    protected $settings_page_data;
+	/**
+	 * @var array
+	 */
+	protected $settings_page_data;
+	/**
+	 * @var CycloneSlider_Data
+	 */
 	protected $data;
 	
 	public function __construct( $settings_page_data, $url, $version, $data ){
@@ -56,11 +68,11 @@ class CycloneSlider_AssetLoader {
 			wp_register_script( 'cycloneslider-admin-script', $this->url.'js/admin.js', array('jquery'), $this->version  );
 			wp_localize_script( 'cycloneslider-admin-script', 'cycloneslider_admin_vars',
 				array(
-					'title'     => __( 'Select an image', 'cycloneslider' ), // This will be used as the default title
-					'title2'     => __( 'Select Images - Use Ctrl + Click or Shift + Click', 'cycloneslider' ),
-					'button'    => __( 'Add to Slide', 'cycloneslider' ), // This will be used as the default button text
-					'button2'    => __( 'Add Images as Slides', 'cycloneslider' ),
-					'youtube_url_error'    => __( 'Error. Make sure its a valid YouTube URL.', 'cycloneslider' ) 
+					'title'     => __( 'Select an image', 'cyclone-slider-2' ), // This will be used as the default title
+					'title2'     => __( 'Select Images - Use Ctrl + Click or Shift + Click', 'cyclone-slider-2' ),
+					'button'    => __( 'Add to Slide', 'cyclone-slider-2' ), // This will be used as the default button text
+					'button2'    => __( 'Add Images as Slides', 'cyclone-slider-2' ),
+					'youtube_url_error'    => __( 'Error. Make sure its a valid YouTube URL.', 'cyclone-slider-2' )
 				)
 			);
 			wp_enqueue_script( 'cycloneslider-admin-script');
@@ -142,18 +154,15 @@ class CycloneSlider_AssetLoader {
 	* Enqueues templates styles.
 	*/
 	private function enqueue_templates_css(){
-		$ds = DIRECTORY_SEPARATOR;
-		
+
 		$template_folders = $this->data->get_all_templates();
 		$active_templates = $this->data->get_enabled_templates( $this->settings_page_data, $template_folders );
 		
-		foreach($template_folders as $name=>$folder){
+		foreach($template_folders as $name=>$template){
 			
-			if( 1 == $active_templates[$name] ){
-				$file = $folder['path']."/style.css"; // Path to file
-				
-				if( file_exists( $file ) ){ // Check existence
-					wp_enqueue_style( 'cyclone-template-style-'.sanitize_title($name), $folder['url'].'/style.css', array(), $this->version );
+			if( 1 == $active_templates[$name] ){ // Active
+				foreach($template['styles'] as $count=>$style) {
+					wp_enqueue_style( 'cyclone-template-style-'.sanitize_title($name).'-'.$count, $template['url'].'/'.$style, array(), $this->version );
 				}
 			}
 		}
@@ -163,8 +172,7 @@ class CycloneSlider_AssetLoader {
 	* Enqueues templates scripts.
 	*/
 	private function enqueue_templates_scripts(){
-		$ds = DIRECTORY_SEPARATOR;
- 
+
 		$in_footer = true;
 		if( $this->settings_page_data['load_scripts_in'] == 'header'){
 			$in_footer = false;
@@ -173,13 +181,11 @@ class CycloneSlider_AssetLoader {
 		$template_folders = $this->data->get_all_templates();
 		$active_templates = $this->data->get_enabled_templates( $this->settings_page_data, $template_folders );
 		
-		foreach($template_folders as $name=>$folder){
+		foreach($template_folders as $name=>$template){
 			
 			if( 1 == $active_templates[$name] ){
-				$file = $folder['path']."/script.js"; // Path to file
-				
-				if( file_exists( $file ) ){ // Check existence
-					wp_enqueue_script( 'cyclone-template-script-'.sanitize_title($name), $folder['url'].'/script.js', array(), $this->version, $in_footer );
+				foreach($template['scripts'] as $count=>$script) {
+					wp_enqueue_script( 'cyclone-template-script-'.sanitize_title($name).'-'.$count, $template['url'].'/'.$script, array(), $this->version, $in_footer );
 				}
 			}
 		}

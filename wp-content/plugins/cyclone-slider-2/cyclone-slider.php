@@ -3,13 +3,13 @@
 Plugin Name: Cyclone Slider 2
 Plugin URI: http://www.codefleet.net/cyclone-slider-2/
 Description: Create and manage sliders with ease. Built for both casual users and developers.
-Version: 2.10.7
+Version: 2.11.0
 Author: Nico Amarilla
 Author URI: http://www.codefleet.net/
-License: GPL2
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Domain Path: /lang
-Text Domain: cycloneslider
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Domain Path: /languages
+Text Domain: cyclone-slider-2
 */
 
 // Autoloader
@@ -62,7 +62,6 @@ function cycloneslider_init() {
             'resize_option' => 'crop'
         )
     );
-    $plugin['image_sizes'] = apply_filters('cycloneslider_image_sizes', $plugin['image_sizes']);
 
     $plugin['data'] = 'cycloneslider_service_data';
 
@@ -99,8 +98,8 @@ function cycloneslider_init() {
     $plugin['settings_page'] = 'cycloneslider_service_settings_page';
     $plugin['settings_page_properties'] = array(
         'parent_slug' => 'edit.php?post_type=cycloneslider',
-        'page_title' =>  __('Cyclone Slider Settings', $plugin['textdomain']),
-        'menu_title' =>  __('Settings', $plugin['textdomain']),
+        'page_title' =>  __('Cyclone Slider Settings', 'cyclone-slider-2'),
+        'menu_title' =>  __('Settings', 'cyclone-slider-2'),
 		'capability' => 'manage_options',
         'menu_slug' => 'cycloneslider-settings',
         'option_group' => 'cyclone_option_group',
@@ -110,8 +109,8 @@ function cycloneslider_init() {
     $plugin['export_page'] = 'cycloneslider_service_export_page';
     $plugin['export_page_properties'] = array(
         'parent_slug' => 'edit.php?post_type=cycloneslider',
-        'page_title' => __('Cyclone Slider Export', $plugin['textdomain']),
-		'menu_title' => __('Export/Import', $plugin['textdomain']),
+        'page_title' => __('Cyclone Slider Export', 'cyclone-slider-2'),
+		'menu_title' => __('Export/Import', 'cyclone-slider-2'),
         'capability' => 'manage_options',
         'menu_slug' => 'cycloneslider-export',
         'transient_name' => 'cycloneslider_export_transient',
@@ -123,8 +122,8 @@ function cycloneslider_init() {
     //$plugin['export_page_nextgen'] = 'cycloneslider_service_export_page_nextgen';
     $plugin['export_page_nextgen_properties'] = array(
         'parent_slug' => '',
-        'page_title' => __('Cyclone Slider Nextgen Export', $plugin['textdomain']),
-		'menu_title' => __('Export Nextgen', $plugin['textdomain']),
+        'page_title' => __('Cyclone Slider Nextgen Export', 'cyclone-slider-2'),
+		'menu_title' => __('Export Nextgen', 'cyclone-slider-2'),
         'capability' => 'manage_options',
         'menu_slug' => 'cycloneslider-export-nextgen',
         'transient_name' => 'cycloneslider_export_nextgen_transient',
@@ -136,8 +135,8 @@ function cycloneslider_init() {
     $plugin['import_page'] = 'cycloneslider_service_import_page';
 	$plugin['import_page_properties'] = array(
         'parent_slug' => '',
-		'page_title' => __('Cyclone Slider Import', $plugin['textdomain']),
-		'menu_title' => __('Import', $plugin['textdomain']),
+		'page_title' => __('Cyclone Slider Import', 'cyclone-slider-2'),
+		'menu_title' => __('Import', 'cyclone-slider-2'),
 		'capability' => 'manage_options',
 		'menu_slug' => 'cycloneslider-import',
         'nonce_name' => 'cycloneslider_import_nonce',
@@ -156,7 +155,7 @@ function cycloneslider_init() {
 
     require_once($plugin['path'].'src/functions.php'); // Function not autoloaded from the old days. Deprecated
 
-    load_plugin_textdomain( $plugin['textdomain'], false, basename(dirname(__FILE__)).'/lang' ); // Load language files
+    load_plugin_textdomain( $plugin['textdomain'], false, basename(dirname(__FILE__)).'/languages/' ); // Load language files
 
     $plugin->run();
 
@@ -274,7 +273,13 @@ function cycloneslider_service_data( $plugin ) {
         return $object;
     }
 
-    $object = new CycloneSlider_Data( $plugin['nonce_name'], $plugin['nonce_action'], $plugin['image_resizer'], $plugin['template_locations'], $plugin['settings_page_properties'] );
+    $object = new CycloneSlider_Data(
+        $plugin['nonce_name'],
+        $plugin['nonce_action'],
+        $plugin['image_resizer'],
+        $plugin['template_locations'],
+        $plugin['settings_page_properties']
+    );
     return $object;
 }
 
@@ -296,8 +301,11 @@ function cycloneslider_service_exporter( $plugin ){
         return $object;
     }
 
-    $wp_upload_location = $plugin['wp_upload_location'];
-    $object = new CycloneSlider_Exporter( $plugin['data'], $plugin['zip_archive'], $plugin['export_json_file'], $plugin['textdomain'] );
+    $object = new CycloneSlider_Exporter(
+        $plugin['data'],
+        $plugin['zip_archive'],
+        $plugin['export_json_file']
+    );
     return $object;
 }
 function cycloneslider_service_importer( $plugin ) {
@@ -308,7 +316,14 @@ function cycloneslider_service_importer( $plugin ) {
     }
 
     $wp_upload_location = $plugin['wp_upload_location'];
-    $object = new CycloneSlider_Importer( $plugin['data'], $plugin['imports_dir'], $wp_upload_location['path'], $plugin['zip_archive'], $plugin['import_zip_name'], $plugin['imports_extracts_dir'], $plugin['export_json_file'], $plugin['textdomain'] );
+    $object = new CycloneSlider_Importer(
+        $plugin['data'],
+        $plugin['imports_dir'],
+        $wp_upload_location['path'],
+        $plugin['zip_archive'],
+        $plugin['import_zip_name'],
+        $plugin['imports_extracts_dir'],
+        $plugin['export_json_file']);
     return $object;
 }
 
@@ -330,7 +345,11 @@ function cycloneslider_service_settings_page( $plugin ) {
         return $object;
     }
 
-    $object = new CycloneSlider_SettingsPage( $plugin['settings_page_properties'], $plugin['data'], $plugin['textdomain'], $plugin['debug'], $plugin['view'] );
+    $object = new CycloneSlider_SettingsPage(
+        $plugin['settings_page_properties'],
+        $plugin['data'],
+        $plugin['debug'],
+        $plugin['view'] );
     return $object;
 }
 
@@ -352,7 +371,6 @@ function cycloneslider_service_export_page( $plugin ) {
         $plugin['exporter'],
         $plugin['wp_content_dir'],
         $plugin['wp_content_url'],
-        $plugin['textdomain'],
         $plugin['export_page_properties']['transient_name'],
         $plugin['export_page_properties']['nonce_name'],
         $plugin['export_page_properties']['nonce_action'],
@@ -384,7 +402,6 @@ function cycloneslider_service_import_page( $plugin ){
         $plugin['cyclone_slider_dir'],
         $plugin['wp_content_dir'],
         $plugin['wp_content_url'],
-        $plugin['textdomain'],
         $plugin['export_page_properties']['url'],
         $plugin['import_page_properties']['url'],
         $plugin['export_page_nextgen_properties']['url']
@@ -409,7 +426,6 @@ function cycloneslider_service_export_page_nextgen( $plugin ) {
         $plugin['exporter'],
         $plugin['wp_content_dir'],
         $plugin['wp_content_url'],
-        $plugin['textdomain'],
         $plugin['export_page_nextgen_properties']['transient_name'],
         $plugin['export_page_nextgen_properties']['nonce_name'],
         $plugin['export_page_nextgen_properties']['nonce_action'],
@@ -442,7 +458,15 @@ function cycloneslider_service_admin( $plugin ) {
         return $object;
     }
 
-    $object = new CycloneSlider_Admin($plugin['asset_loader'], $plugin['textdomain'], $plugin['data'], $plugin['debug'], $plugin['view'], $plugin['nonce_name'], $plugin['nonce_action'], $plugin['url'] );
+    $object = new CycloneSlider_Admin(
+        $plugin['asset_loader'],
+        $plugin['data'],
+        $plugin['debug'],
+        $plugin['view'],
+        $plugin['nonce_name'],
+        $plugin['nonce_action'],
+        $plugin['url']
+    );
     return $object;
 }
 

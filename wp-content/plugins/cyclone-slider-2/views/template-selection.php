@@ -1,16 +1,16 @@
 <?php if(!defined('ABSPATH')) die('Direct access denied.'); ?>
 <ul class="cs-templates">
 	<li class="header">
-		<span class="template-name"><?php _e('Name', 'cycloneslider'); ?></span>
-		<span class="supported-slide-types"><?php _e('Supported Slides', 'cycloneslider'); ?></span>
-		<span class="cs-location"><?php _e('Location', 'cycloneslider'); ?></span>
-		<span class="selected"><?php _e('Selected', 'cycloneslider'); ?></span>
+		<span class="template-name"><?php _e('Name', 'cyclone-slider-2'); ?></span>
+		<span class="supported-slide-types"><?php _e('Supported Slides', 'cyclone-slider-2'); ?></span>
+		<span class="cs-location"><?php _e('Location', 'cyclone-slider-2'); ?></span>
+		<span class="selected"><?php _e('Selected', 'cyclone-slider-2'); ?></span>
 		<span class="clear"></span>
 	</li>
-	<?php foreach($templates as $name=>$template): ?>
+	<?php foreach($templates as $id=>$template): ?>
 	<li class="body <?php echo ($template['selected']) ? 'active' : ''; ?>">
-		<input <?php checked( $slider_settings['template'], $name); ?> id="template-<?php echo esc_attr($name); ?>" type="radio" name="cycloneslider_settings[template]" value="<?php echo esc_attr($name); ?>" />
-		<span class="template-name"><?php echo esc_attr(ucwords(str_replace('-',' ',$name))); ?></span>
+		<input <?php checked( $slider_settings['template'], $id); ?> id="template-<?php echo esc_attr($id); ?>" type="radio" name="cycloneslider_settings[template]" value="<?php echo esc_attr($id); ?>" />
+		<span class="template-name"><?php echo esc_html($template['name']); ?></span>
 		<span class="supported-slide-types">
 			<?php if(in_array('image', $template['supports'])): ?>
 			<i title="Image" class="icon-picture"></i>
@@ -39,4 +39,7 @@
 	</li>
 	<?php endforeach; ?>
 </ul>
-<div class="clear"></div>
+<div class="cs-templates-buttons">
+	<a target="_blank" href="http://docs.codefleet.net/cyclone-slider-2/templating/" class="button-secondary"><?php _e('Learn More About Templates', 'cyclone-slider-2'); ?></a>
+	<a target="_blank" href="https://www.codefleet.net/cyclone-slider-2/templates/" class="button-secondary"><?php _e('Get More Templates', 'cyclone-slider-2'); ?></a>
+</div>

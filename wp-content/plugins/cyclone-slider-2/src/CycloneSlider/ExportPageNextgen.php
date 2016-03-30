@@ -8,7 +8,6 @@ class CycloneSlider_ExportPageNextgen extends CycloneSlider_WpAdminSubPage{
 	protected $exporter;
 	protected $wp_content_dir;
 	protected $wp_content_url;
-	protected $textdomain;
 	protected $transient_name;
 	protected $nonce_name;
 	protected $nonce_action;
@@ -16,7 +15,7 @@ class CycloneSlider_ExportPageNextgen extends CycloneSlider_WpAdminSubPage{
 	protected $import_page_url;
 	protected $nextgen_page_url;
 	
-	public function __construct( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $view, $exporter, $wp_content_dir, $wp_content_url, $textdomain, $transient_name, $nonce_name, $nonce_action, $export_page_url, $import_page_url, $nextgen_page_url ){
+	public function __construct( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $view, $exporter, $wp_content_dir, $wp_content_url, $transient_name, $nonce_name, $nonce_action, $export_page_url, $import_page_url, $nextgen_page_url ){
 		parent::__construct(
             $parent_slug,
             $page_title,
@@ -29,7 +28,6 @@ class CycloneSlider_ExportPageNextgen extends CycloneSlider_WpAdminSubPage{
 		$this->exporter = $exporter;
 		$this->wp_content_dir = $wp_content_dir;
 		$this->wp_content_url = $wp_content_url;
-		$this->textdomain = $textdomain;
 		$this->transient_name = $transient_name;
 		$this->nonce_name = $nonce_name;
 		$this->nonce_action = $nonce_action;
@@ -54,7 +52,6 @@ class CycloneSlider_ExportPageNextgen extends CycloneSlider_WpAdminSubPage{
 		
 		$vars = array();
 		$vars['transient_name'] = $this->transient_name;
-		$vars['textdomain'] = $this->textdomain;
 		$vars['nonce_name'] = $this->nonce_name;
 		$vars['nonce'] = wp_create_nonce( $this->nonce_action );
 		$vars['export_page_url'] = $this->export_page_url;
@@ -62,17 +59,17 @@ class CycloneSlider_ExportPageNextgen extends CycloneSlider_WpAdminSubPage{
 		$vars['nextgen_page_url'] = $this->nextgen_page_url;
 		$vars['tabs'] = array(
 			array(
-				'title' => __('Export', $this->textdomain),
+				'title' => __('Export', 'cyclone-slider-2'),
 				'url' => $this->export_page_url,
 				'classes' => 'nav-tab'
 			),
 			array(
-				'title' => __('Import', $this->textdomain),
+				'title' => __('Import', 'cyclone-slider-2'),
 				'url' => $this->import_page_url,
 				'classes' => 'nav-tab'
 			),
 			array(
-				'title' => __('Export Nextgen', $this->textdomain),
+				'title' => __('Export Nextgen', 'cyclone-slider-2'),
 				'url' => $this->nextgen_page_url,
 				'classes' => 'nav-tab nav-tab-active'
 			)
@@ -118,12 +115,12 @@ class CycloneSlider_ExportPageNextgen extends CycloneSlider_WpAdminSubPage{
 		
         $zip_file = $this->wp_content_dir.'/cyclone-slider/exports/'.$vars['page_data']['file_name'];
         
-		$vars['ok'] = __('Your export file is ready. Click Download.', $this->textdomain);
+		$vars['ok'] = __('Your export file is ready. Click Download.', 'cyclone-slider-2');
 		try {
 			// Create exports dir
 			if( is_dir( $this->wp_content_dir.'/cyclone-slider/exports' ) == false ){
 				if( ! mkdir( $this->wp_content_dir.'/cyclone-slider/exports', 0777, true ) ){
-					throw new Exception( __('Error creating exports directory.', $this->textdomain));
+					throw new Exception( __('Error creating exports directory.', 'cyclone-slider-2'));
 				}
 			}
 		
@@ -172,12 +169,12 @@ class CycloneSlider_ExportPageNextgen extends CycloneSlider_WpAdminSubPage{
 		}
 		
 		if( empty( $post[$this->transient_name]['sliders']) ){
-			set_transient( 'cycloneslider_error_export', __('No slider selected.', $this->textdomain), 60 );
+			set_transient( 'cycloneslider_error_export', __('No slider selected.', 'cyclone-slider-2'), 60 );
 			return false;
 		}
 		
 		if( empty( $post[$this->transient_name]['file_name'] ) ){
-			set_transient( 'cycloneslider_error_export', __('Please choose a file name.', $this->textdomain), 60 );
+			set_transient( 'cycloneslider_error_export', __('Please choose a file name.', 'cyclone-slider-2'), 60 );
 			return false;
 		}
 		

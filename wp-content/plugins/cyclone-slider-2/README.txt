@@ -4,22 +4,27 @@ Donate link: http://www.codefleet.net/donate/
 Tags: slider, slideshow, drag-and-drop, wordpress-slider, wordpress-slideshow, cycle 2, jquery, responsive, translation-ready, custom-post, cyclone-slider
 Requires at least: 3.5
 Tested up to: 4.4.2
-Stable tag: 2.10.7
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Stable tag: trunk
+License: GPLv3
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Create and manage sliders with ease. Built for both casual users and developers.
+An easy-to-use and customizable slideshow plugin. For both casual users and expert developers.
 
 == Description ==
 
-Cyclone Slider 2 is an easy-to-use slider plugin with an intuitive user interface. It leverages the built-in features of WordPress. It uses custom post for the slider, custom fields to store settings, and media uploader for the images. It also uses a template system that allows developers to easily customize the look and behavior of the slider. It's a simple and flexible slider plugin.
+Cyclone Slider 2 is an easy-to-use slideshow plugin with an intuitive user interface. It's simple yet extensible.
 
-= Features: =
-* Very easy to use interface! Just drag and drop to re-order your slides.
-* Responsive slider for responsive and fluid websites.
-* Supports image, YouTube, Vimeo, custom HTML, and testimonial slides.
-* Powered by [Cycle 2](http://jquery.malsup.com/cycle2/), the most flexible jQuery slideshow plugin.
-* Every project is unique. To address this issue Cyclone Slider 2 has a template system that allow developers to easily customize the slider appearance and behavior.
+= Why Use It? =
+* Simplified workflow: 1.) Add slides 2.) Set slideshow properties 3.) Choose a template 4.) Publish! You can choose between a shortcode or a php function (for themes) to display.
+* Supports 5 different slide types: image, YouTube, Vimeo, custom HTML, and testimonial slides.
+* Translation ready and RTL support. Ideal for languages other than English.
+* Comes with 4 core templates: Dark, Default, Standard and Thumbnails.
+* Advance template system. Not happy with the core templates? The template system allows developers to customize the slideshow appearance and behavior. Perfect for every client projects. [More info on templating here](http://docs.codefleet.net/cyclone-slider-2/templating/).
+* Selective loading. Load only the scripts and styles that you need.
+* Import/export selected slideshows. Moving your slideshow to a different website? No problemo.
+* It's FREE!
+
+= More Features =
 * Ability to add per-slide transition effects.
 * Customizable tile transition effects.
 * Unlimited sliders.
@@ -27,23 +32,32 @@ Cyclone Slider 2 is an easy-to-use slider plugin with an intuitive user interfac
 * Supports random slide order.
 * Shortcode for displaying sliders anywhere in your site.
 * Ability to import images from NextGEN (NextGEN must be installed and active).
-* Translation ready and RTL support.
 * Ability to use qTranslate quick tags for slide title and descriptions (qTranslate must be installed and active).
 * Allows title and alt to be specified for each slide images.
 * Comes with a widget to display your slider easily in widget areas.
 * Ability to fine tune the script settings. You can choose what scripts to load and where to load them.
-* It's FREE!
+
+= Cyclone Slider Pro =
+
+Cyclone Slider Pro offers even more features:
+
+* Allow wrap. Slideshow wraps to beginning slide if it reaches the end slide.
+* Dynamic height. For slides with varying height.
+* Delay. Delay start of slideshow
+* Easing. Some cool transition effects.
+* Swipe. Swipe gesture support for touch devices.
+* 4 more resize options. Crop, Exact, Landscape, Portrait
+* And two additional templates: Text and Galleria
+
 
 = Demos =
 * View some [screenshots](http://wordpress.org/plugins/cyclone-slider-2/screenshots/).
-* Checkout the [Cyclone Slider 2 homepage](http://www.codefleet.net/cyclone-slider-2/) for a live demo.
+* Checkout the [Cyclone Slider 2 homepage](https://www.codefleet.net/cyclone-slider-2/) for a live demo.
 
 = Credits =
 * Cyclone Slider 2 was based on [Cycle 2](http://jquery.malsup.com/cycle2/) by [Mike Alsup](http://jquery.malsup.com/).
-* Special thanks to Cea Bacolor for the wonderful photos.
 
-
-= Translations = 
+= Translation Credits =
 * Aubin BERTHE for the French translation.
 * maxgx for the Italian translation.
 * [Hassan](http://wordpress.org/support/profile/hassanhamm) for the Arabic translation.
@@ -51,10 +65,10 @@ Cyclone Slider 2 is an easy-to-use slider plugin with an intuitive user interfac
 * [Borisa Djuraskovic](http://www.webhostinghub.com/) for the Serbo-Croatian translation.
 * [Gabriel Gil](http://gabrielgil.es/) and [Digital03](http://digital03.net/) for the Spanish translation.
 
-Do you want to translate Cyclone Slider into your language? Go to the project page at [transifex](https://www.transifex.com/projects/p/cyclone-slider-2/), create a free account, and join.
+Do you want to translate Cyclone Slider 2 manually into your language? Check this [tutorial](http://docs.codefleet.net/cyclone-slider-2/translation/).
 
 = License =
-GPLv2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+GPLv3 - http://www.gnu.org/licenses/gpl-3.0.html
 
 == Installation ==
 
@@ -103,8 +117,19 @@ Inside `wp-content` create a folder named "cycloneslider". Add your templates in
 
 == Changelog ==
 
+= 2.11.0 - 2015-03-30 =
+* New. Templates can now be added using a sub-plugin. See [docs](http://docs.codefleet.net/cyclone-slider-2/creating-your-own-template/).
+* New filter cycloneslider_view_vars. See [docs for a full list of filters](http://docs.codefleet.net/cyclone-slider-2/filters/).
+* Change overall textdomain handling to be compatible with wordpress.org translation.
+* Improved message and warnings for template locations.
+* Change the Hide checkbox to Hidden to better convey the action.
+* Added Upgrade to Pro link in publish metabox.
+* Move cycloneslider_image_sizes filter out of plugins_loaded to fire at a later time.
+* Fix. Author will now show up even without a link for testimonials.
+* Updated license to GPLv3
+
 = 2.10.7 - 2015-03-03 =
-* Fix Width Management and Resize Images not working
+* Fix Width Management and Resize Images not working.
 
 = 2.10.6 - 2015-03-01 =
 * New. Added security checks to export zip.

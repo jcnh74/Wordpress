@@ -5,7 +5,7 @@
     
 	<?php $this->render('export-import-tabs.php', array('tabs'=>$tabs)); ?>
 	
-    <h2><?php _e('Cyclone Slider Exporter', $textdomain); ?></h2>
+    <h2><?php _e('Cyclone Slider Exporter', 'cyclone-slider-2'); ?></h2>
 	
 	<?php $this->render('error-message.php', array('error'=>$error)); ?>
 	
@@ -18,11 +18,11 @@
 			<?php endforeach; ?>
 		</ul>
 		<br /><br />
-		<a class="button" href="<?php echo esc_url($export_page_url); ?>"><?php _e('Back', $textdomain); ?></a>
-		<a class="button button-primary" href="<?php echo esc_url($zip_url); ?>"><?php _e('Download', $textdomain); ?></a>
+		<a class="button" href="<?php echo esc_url($export_page_url); ?>"><?php _e('Back', 'cyclone-slider-2'); ?></a>
+		<a class="button button-primary" href="<?php echo esc_url($zip_url); ?>"><?php _e('Download', 'cyclone-slider-2'); ?></a>
 	<?php else: ?>
 		
 		<br /><br />
-		<a class="button" href="<?php echo esc_url($export_page_url); ?>"><?php _e('Back', $textdomain); ?></a>
+		<a class="button" href="<?php echo esc_url($export_page_url); ?>"><?php _e('Back', 'cyclone-slider-2'); ?></a>
 	<?php endif; ?>
 </div>

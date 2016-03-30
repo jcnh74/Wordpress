@@ -3,13 +3,28 @@
  * Class for saving and getting slider data  
  */
 class CycloneSlider_Data {
-    
+
+    /**
+     * @var string
+     */
     protected $nonce_name;
+    /**
+     * @var string
+     */
     protected $nonce_action;
+    /**
+     * @var CycloneSlider_ImageResizer
+     */
     protected $image_resizer;
+    /**
+     * @var array
+     */
     protected $template_locations;
+    /**
+     * @var array
+     */
     protected $settings_page_properties;
-    
+
     public function __construct( $nonce_name, $nonce_action, $image_resizer, $template_locations, $settings_page_properties ){
         $this->nonce_name = $nonce_name;
 		$this->nonce_action = $nonce_action;
@@ -138,6 +153,7 @@ class CycloneSlider_Data {
         $settings_to_save['resize_option'] = 'auto';
         $settings_to_save['allow_wrap'] = 'true';
         $settings_to_save['dynamic_height'] = 'off';
+        $settings_to_save['dynamic_height_speed'] = 250;
         $settings_to_save['delay'] = 0;
         $settings_to_save['swipe'] = 'false';
 
@@ -314,7 +330,6 @@ class CycloneSlider_Data {
 
         $slider_posts = get_posts( $args ); // Use get_posts to avoid filters
 
-        $sliders = array(); // Store it here
         if( isset($slider_posts[0]) ){
             $slider_post = $slider_posts[0];
             
@@ -428,11 +443,10 @@ class CycloneSlider_Data {
      * @return string|false Slider view filepath or false
      */
     public function get_view_file( $template_name ){
-        
-        $template_locations = $this->template_locations;
-        $template_locations = array_reverse($template_locations); // Last added template locations are checked first
-        foreach($template_locations as $template_location){
-            $view_file = $template_location['path']."{$template_name}/slider.php";
+
+        $templates = $this->get_all_templates();
+        if(isset($templates[$template_name])){
+            $view_file = $templates[ $template_name ]['path'] . '/slider.php';
             if(@is_file($view_file)){
                 return $view_file;
             }
@@ -445,13 +459,13 @@ class CycloneSlider_Data {
 	 * Get all templates in array format
 	 */
 	public function get_all_templates(){
-		if(is_array($this->template_locations) and !empty($this->template_locations)){
-			$template_folders = array();
-			foreach($this->template_locations as $location){
-				if( is_dir($location['path']) ) {
-					if($files = scandir($location['path'])){
-						$c = 0;
-						foreach($files as $name){
+
+        $templates = array();
+		if( is_array( $this->template_locations ) ){
+			foreach( $this->template_locations as $location ){
+				if( is_dir( $location['path'] ) ) {
+					if( $files = scandir( $location['path'] ) ){
+						foreach( $files as $name ){
 							if($name!='.' and $name!='..' and is_dir($location['path'].$name) and @file_exists($location['path'].$name.DIRECTORY_SEPARATOR.'slider.php') ){ // Check if its a directory
 								$supported_slide_types = array('image');// Default
 								if ( $config = $this->parse_config_json( $location['path'].$name.DIRECTORY_SEPARATOR.'config.json' ) ) {
@@ -462,21 +476,44 @@ class CycloneSlider_Data {
 										$supported_slide_types = $ini_array['slide_type'];
 									}
 								}
-								
-								$name = sanitize_title($name);// Change space to dash and all lowercase
-								$template_folders[$name] = array( // Here we override template of the same names. If there is a template with the same name in plugin and theme directory, the one in theme will take over
-									'path'=>$location['path'].$name,
-									'url'=>$location['url'].$name,
-									'supports' => $supported_slide_types,
-									'location_name' => $location['location_name']
-								);
+
+                                $name = sanitize_title($name); // Change space to dash and all lowercase
+
+                                // Old templates (pre 2.11.0) can only have 1 css file and 1 js file
+
+                                // Check if script.js exists
+                                $scripts = array();
+                                if ( @file_exists( $location['path'] . $name . DIRECTORY_SEPARATOR . 'script.js' ) ) {
+                                    $scripts = array(
+                                        'script.js'
+                                    );
+                                }
+
+                                // Check if style.css exists
+                                $styles = array();
+                                if ( @file_exists( $location['path'] . $name . DIRECTORY_SEPARATOR . 'style.css' ) ) {
+                                    $styles = array(
+                                        'style.css'
+                                    );
+                                }
+
+                                // Create and add template object to our template list
+                                $templates[ $name ] = array(
+                                    'name' => ucwords(str_replace('-',' ',$name)),
+                                    'path' => $location['path'].$name,
+                                    'url' => $location['url'].$name,
+                                    'supports' => $supported_slide_types,
+                                    'location_name' => $location['location_name'],
+                                    'scripts' => $scripts,
+                                    'styles' => $styles
+                                );
 							}
 						}
 					}
 				}
-			}			
-			return $template_folders;
+			}
 		}
+        return apply_filters('cycloneslider_template_list', $templates);
 	}
     
     /**
@@ -504,7 +541,7 @@ class CycloneSlider_Data {
 	 * @param string $file Full path to config file
 	 * @return object $config_data or false on fail
 	 */
-	protected function parse_config_json( $file ){
+	public function parse_config_json( $file ){
 		if( @file_exists($file) ){
 			$config = file_get_contents($file); //Get template info
 			if($config){
@@ -710,6 +747,7 @@ class CycloneSlider_Data {
             'easing' => '',
             'allow_wrap' => 'true',
             'dynamic_height' => 'off',
+            'dynamic_height_speed' => 250,
             'delay' => 0,
             'swipe' => 'false'
         );

@@ -27,7 +27,8 @@ class CycloneSlider_Plugin implements ArrayAccess {
     }
     
     public function run(){
-        $this->contents = apply_filters('cyclone_slider_services', $this->contents);
+        $this->contents = apply_filters('cyclone_slider_services', $this->contents); // Deprecated. Maintained for BC only.
+        $this->contents = apply_filters('cycloneslider_services', $this->contents);
         // Loop on contents
         foreach($this->contents as $key=>$content){
             if( is_callable($content) ){

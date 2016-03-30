@@ -1,8 +1,5 @@
 <?php if(!defined('ABSPATH')) die('Direct access denied.'); ?>
 
-<?php
-// For description of variables go to: http://www.codefleet.net/cyclone-slider-2/#template-variables
-?>
 <div tabindex="0" class="cycloneslider cycloneslider-template-standard cycloneslider-width-<?php echo esc_attr( $slider_settings['width_management'] ); ?>"
     id="<?php echo esc_attr( $slider_html_id ); ?>"
     <?php echo ( 'responsive' == $slider_settings['width_management'] ) ? 'style="max-width:'.esc_attr( $slider_settings['width'] ).'px"' : ''; ?>
@@ -76,9 +73,9 @@
             <?php elseif ( 'testimonial' == $slide['type'] ) : ?>
                 <div class="cycloneslider-slide cycloneslider-slide-testimonial" <?php echo $slide['slide_data_attributes']; ?>>
                     <blockquote>
-                        <p><?php echo $slide['testimonial']; ?></p>
+                        <p><?php echo wp_kses_post($slide['testimonial']); ?></p>
                     </blockquote>
-                    <?php if ( '' != $slide['testimonial_link'] ) : ?>
+                    <?php if ( '' != $slide['testimonial_author'] ) : ?>
                         <?php if( '_blank' == $slide['testimonial_link_target'] ): ?>
                             <p class="cycloneslider-testimonial-author">
                                 <a target="_blank" href="<?php echo esc_url( $slide['testimonial_link'] );?>">-<?php echo esc_attr( $slide['testimonial_author'] );?></a>

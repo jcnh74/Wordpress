@@ -69,7 +69,8 @@ class CycloneSlider_ImageResizer {
 					}
 				}
 				
-				// Additional slide images. Used mainly by templates. Eg. Thumbnail template's thumbnails 
+				// Additional slide images. Used mainly by templates. Eg. Thumbnail template's thumbnails
+				$this->image_sizes = apply_filters('cycloneslider_image_sizes', $this->image_sizes);
 				foreach($this->image_sizes as $size){
 					
 					// Create thumb filename-{width}x{height}.jpg

@@ -36,7 +36,7 @@ class CycloneSlider_NextgenIntegration {
 		
 		add_meta_box(
 			'cyclone-nextgen-metabox',
-			__('NextGEN Integration', 'cycloneslider'),
+			__('NextGEN Integration', 'cyclone-slider-2'),
 			array( $this, 'render_nextgen_meta_box' ),
 			'cycloneslider' ,
 			'normal',
@@ -52,7 +52,7 @@ class CycloneSlider_NextgenIntegration {
 		
 		?>
 		<div class="cycloneslider-field last">
-			<label for="cycloneslider_nextgen_gallery"><?php _e('Choose a NextGEN Gallery', 'cycloneslider'); ?></label>
+			<label for="cycloneslider_nextgen_gallery"><?php _e('Choose a NextGEN Gallery', 'cyclone-slider-2'); ?></label>
 			<?php
 			$galleries = $nggdb->find_all_galleries();
 			?>
@@ -62,9 +62,9 @@ class CycloneSlider_NextgenIntegration {
 				<option value="<?php echo $gallery->gid; ?>"><?php echo $gallery->title; ?></option>
 				<?php endforeach; ?>
 			</select>
-			<input type="submit" name="cycloneslider_settings[nextgen]" value="<?php _e('Import', 'cycloneslider'); ?>" class="button-secondary" />
+			<input type="submit" name="cycloneslider_settings[nextgen]" value="<?php _e('Import', 'cyclone-slider-2'); ?>" class="button-secondary" />
 			<br />
-			<span class="note"><?php _e('Select a gallery to import images from. Images will be added as new slides.', 'cycloneslider'); ?></span>
+			<span class="note"><?php _e('Select a gallery to import images from. Images will be added as new slides.', 'cyclone-slider-2'); ?></span>
 			<div class="clear"></div>
 		</div>
 		<?php

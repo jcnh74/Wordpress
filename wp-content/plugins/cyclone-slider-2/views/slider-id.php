@@ -2,6 +2,6 @@
 
 <div class="cycloneslider-field last">
 	<input id="cycloneslider_post_name" type="text" name="post_name" value="<?php echo esc_attr($post_name); ?>" />
-	<span class="note"><?php _e('Change the Slideshow ID here.', 'cycloneslider'); ?></span>
+	<span class="note"><?php _e('Change the Slideshow ID here.', 'cyclone-slider-2'); ?></span>
 	<div class="clear"></div>
 </div>

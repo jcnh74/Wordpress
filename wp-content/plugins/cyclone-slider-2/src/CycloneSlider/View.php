@@ -42,8 +42,8 @@ class CycloneSlider_View {
 			if(!empty($vars)){
 				extract($vars, EXTR_SKIP); // Extract variables
 			}
-			
-			include($view_file); //Include the view file
+
+			include $view_file; //Include the view file
 		} else {
 			echo '<p>Not found '.$view_file.'</p>';
 		}

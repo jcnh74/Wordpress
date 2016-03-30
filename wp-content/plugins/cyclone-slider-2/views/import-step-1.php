@@ -5,7 +5,7 @@
     
 	<?php $this->render('export-import-tabs.php', array('tabs'=>$tabs)); ?>
 	
-	<h2><?php _e('Cyclone Slider Importer', $textdomain); ?></h2>
+	<h2><?php _e('Cyclone Slider Importer', 'cyclone-slider-2'); ?></h2>
 	
 	<?php $this->render('error-message.php', array('error'=>$error)); ?>
 	
@@ -14,13 +14,13 @@
 		<input type="hidden" name="cycloneslider_import_step" value="1" />
 		<table class="form-table">
 			<tr>
-				<th><label for="cycloneslider_import"><?php _e('Import Zip File:', $textdomain); ?></label></th>
+				<th><label for="cycloneslider_import"><?php _e('Import Zip File:', 'cyclone-slider-2'); ?></label></th>
 				<td>
 					<input id="cycloneslider_import" type="file" name="cycloneslider_import" />
 				</td>
 			</tr>
 		</table>
 		<br /><br />
-		<?php submit_button( __('Upload', $textdomain), 'primary', 'submit', false) ?>
+		<?php submit_button( __('Upload', 'cyclone-slider-2'), 'primary', 'submit', false) ?>
 	</form>
 </div>
