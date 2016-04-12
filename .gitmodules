@@ -46,3 +46,6 @@
 [submodule "wp-content/plugins/Wordpress-Impress"]
 	path = wp-content/plugins/Wordpress-Impress
 	url = git@github.com:jcnh74/Wordpress-Impress.git
+[submodule "wp-content/themes/eclipse"]
+	path = wp-content/themes/eclipse
+	url = git@github.com:bricksf/eclipse.git
