@@ -425,7 +425,7 @@ class GF_Field_FileUpload extends GF_Field {
 					$file_path          = esc_attr( str_replace( ' ', '%20', $file_path ) );
 					$base_name          = $info['basename'];
 					$click_to_view_text = esc_attr__( 'Click to view', 'gravityforms' );
-					$output_arr[]       = $format == 'text' ? $file_path . PHP_EOL : "<li><a href='{$file_path}' target='_blank' title='{$click_to_view_text}'>{$base_name}</a></li>";
+					$output_arr[]       = $format == 'text' ? $file_path . PHP_EOL : "<li><img src='{$file_path}' /><a href='{$file_path}' target='_blank' title='{$click_to_view_text}'>{$base_name}</a></li>";
 				}
 				$output = join( PHP_EOL, $output_arr );
 			}

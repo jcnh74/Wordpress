@@ -34,8 +34,8 @@ div#preview_hdr {
 	margin: 0;
 	color: #FFF;
 	font-family: "Open Sans",sans-serif;
-	padding: 10px 20px 0.50em 0;
-	font-size: 1em;
+	padding: 10px 20px 8px 0;
+	font-size: 16px;
 	background-color: #0074A2;
 	display:block !important;
 }
@@ -44,12 +44,12 @@ div#preview_hdr h2 {
 	font-weight: normal;
 	padding: 0 !important;
 	margin: 0 !important;
-	font-size: 1.125em;
+	font-size: 18px;
 	white-space: nowrap !important;
 }
 
 div#preview_hdr div:first-child {
-	padding-left: 1em;
+	padding-left: 16px;
 }
 
 div#preview_hdr span.actionlinks {
@@ -59,7 +59,7 @@ div#preview_hdr span.actionlinks {
 	text-align: right;
 	margin-top: 2px;
 	font-family: "lucida sans", "lucida grande", lucida , sans-serif;
-	font-size: 1em;
+	font-size: 16px;
 	color: #FFF;
 }
 
@@ -109,7 +109,7 @@ body .gform_wrapper textarea {
 .gform_page_footer input.button,
 .gform_page_footer input[type=button] {
 	border: none;
-    font-size: 1em;
+    font-size: 16px;
     text-decoration: none;
     color: #FFF;
     background-color: #3498db;
